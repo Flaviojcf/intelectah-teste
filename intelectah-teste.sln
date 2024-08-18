@@ -5,6 +5,8 @@ VisualStudioVersion = 17.11.35208.52
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "intelectah.Domain", "intelectah.Domain\intelectah.Domain.csproj", "{6A418A8F-759E-419E-A121-BB7C1D99E3F5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "intelectah.Tests", "intelectah.Tests\intelectah.Tests.csproj", "{1E799522-6D9C-4214-8BE2-F6CFBC641661}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{6A418A8F-759E-419E-A121-BB7C1D99E3F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6A418A8F-759E-419E-A121-BB7C1D99E3F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6A418A8F-759E-419E-A121-BB7C1D99E3F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E799522-6D9C-4214-8BE2-F6CFBC641661}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E799522-6D9C-4214-8BE2-F6CFBC641661}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E799522-6D9C-4214-8BE2-F6CFBC641661}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E799522-6D9C-4214-8BE2-F6CFBC641661}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
