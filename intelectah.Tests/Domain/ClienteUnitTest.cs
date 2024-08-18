@@ -63,7 +63,9 @@ namespace intelectah.Tests.Domain
         [Trait("Domain", "Update Cliente")]
         public void UpdateCliente_WithEmptyName_ThrowsDomainExceptionValidation()
         {
-            var exception = Assert.Throws<DomainExceptionValidation>(() => new Cliente("", "12345678901", "11987654321"));
+            var cliente = new Cliente("Client Name", "12345678901", "11987654321");
+
+            var exception = Assert.Throws<DomainExceptionValidation>(() => cliente.Update("", "12345678902", "11987654322"));
 
             Assert.Equal("O nome é obrigatório", exception.Message);
         }
@@ -72,7 +74,10 @@ namespace intelectah.Tests.Domain
         [Trait("Domain", "Update Cliente")]
         public void UpdateCliente_WithEmptyCPF_ThrowsDomainExceptionValidation()
         {
-            var exception = Assert.Throws<DomainExceptionValidation>(() => new Cliente("Client Name", "", "11987654321"));
+
+            var cliente = new Cliente("Client Name", "12345678901", "11987654321");
+
+            var exception = Assert.Throws<DomainExceptionValidation>(() => cliente.Update("Client Name", "", "11987654322"));
 
             Assert.Equal("O cpf é obrigatório", exception.Message);
         }
@@ -81,7 +86,9 @@ namespace intelectah.Tests.Domain
         [Trait("Domain", "Update Cliente")]
         public void UpdateCliente_WithEmptyTelefone_ThrowsDomainExceptionValidation()
         {
-            var exception = Assert.Throws<DomainExceptionValidation>(() => new Cliente("Client Name", "12345678901", ""));
+            var cliente = new Cliente("Client Name", "12345678901", "11987654321");
+
+            var exception = Assert.Throws<DomainExceptionValidation>(() => cliente.Update("Client Name", "12345678901", ""));
 
             Assert.Equal("O telefone é obrigatório", exception.Message);
         }
