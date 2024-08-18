@@ -25,7 +25,7 @@ namespace intelectah.Tests.Domain
 
         [Fact]
         [Trait("Domain", "Create Concessionaria")]
-        public void CreateConcessionaria_WithEmptyName_ThrowsDomainExceptionValidation()
+        public void CreateConcessionaria_WithInvalidName_ThrowsDomainExceptionValidation()
         {
             var exception = Assert.Throws<DomainExceptionValidation>(() => new Concessionaria("", "Concessionaria Address", "Concessionaria City", "Concessionaria State", "12345678", "11987654321", "concessionaria@example.com", 10));
 
@@ -34,7 +34,7 @@ namespace intelectah.Tests.Domain
 
         [Fact]
         [Trait("Domain", "Create Concessionaria")]
-        public void CreateConcessionaria_WithEmptyEndereco_ThrowsDomainExceptionValidation()
+        public void CreateConcessionaria_WithInvalidEndereco_ThrowsDomainExceptionValidation()
         {
             var exception = Assert.Throws<DomainExceptionValidation>(() => new Concessionaria("Concessionaria Name", "", "Concessionaria City", "Concessionaria State", "12345678", "11987654321", "concessionaria@example.com", 10));
 
@@ -43,7 +43,7 @@ namespace intelectah.Tests.Domain
 
         [Fact]
         [Trait("Domain", "Create Concessionaria")]
-        public void CreateConcessionaria_WithEmptyCidade_ThrowsDomainExceptionValidation()
+        public void CreateConcessionaria_WithInvalidCidade_ThrowsDomainExceptionValidation()
         {
             var exception = Assert.Throws<DomainExceptionValidation>(() => new Concessionaria("Concessionaria Name", "Concessionaria Address", "", "Concessionaria State", "12345678", "11987654321", "concessionaria@example.com", 10));
 
@@ -52,7 +52,7 @@ namespace intelectah.Tests.Domain
 
         [Fact]
         [Trait("Domain", "Create Concessionaria")]
-        public void CreateConcessionaria_WithEmptyEstado_ThrowsDomainExceptionValidation()
+        public void CreateConcessionaria_WithInvalidEstado_ThrowsDomainExceptionValidation()
         {
             var exception = Assert.Throws<DomainExceptionValidation>(() => new Concessionaria("Concessionaria Name", "Concessionaria Address", "Concessionaria City", "", "12345678", "11987654321", "concessionaria@example.com", 10));
 
@@ -61,7 +61,7 @@ namespace intelectah.Tests.Domain
 
         [Fact]
         [Trait("Domain", "Create Concessionaria")]
-        public void CreateConcessionaria_WithEmptyCEP_ThrowsDomainExceptionValidation()
+        public void CreateConcessionaria_WithInvalidCEP_ThrowsDomainExceptionValidation()
         {
             var exception = Assert.Throws<DomainExceptionValidation>(() => new Concessionaria("Concessionaria Name", "Concessionaria Address", "Concessionaria City", "Concessionaria State", "", "11987654321", "concessionaria@example.com", 10));
 
@@ -70,7 +70,7 @@ namespace intelectah.Tests.Domain
 
         [Fact]
         [Trait("Domain", "Create Concessionaria")]
-        public void CreateConcessionaria_WithEmptyTelefone_ThrowsDomainExceptionValidation()
+        public void CreateConcessionaria_WithInvalidTelefone_ThrowsDomainExceptionValidation()
         {
             var exception = Assert.Throws<DomainExceptionValidation>(() => new Concessionaria("Concessionaria Name", "Concessionaria Address", "Concessionaria City", "Concessionaria State", "12345678", "", "concessionaria@example.com", 10));
 
@@ -79,7 +79,7 @@ namespace intelectah.Tests.Domain
 
         [Fact]
         [Trait("Domain", "Create Concessionaria")]
-        public void CreateConcessionaria_WithEmptyEmail_ThrowsDomainExceptionValidation()
+        public void CreateConcessionaria_WithInvalidEmail_ThrowsDomainExceptionValidation()
         {
             var exception = Assert.Throws<DomainExceptionValidation>(() => new Concessionaria("Concessionaria Name", "Concessionaria Address", "Concessionaria City", "Concessionaria State", "12345678", "11987654321", "", 10));
 
@@ -117,7 +117,7 @@ namespace intelectah.Tests.Domain
 
         [Fact]
         [Trait("Domain", "Update Concessionaria")]
-        public void UpdateConcessionaria_WithEmptyEndereco_ThrowsDomainExceptionValidation()
+        public void UpdateConcessionaria_WithInvalidEndereco_ThrowsDomainExceptionValidation()
         {
             var concessionaria = new Concessionaria("Concessionaria Name", "Concessionaria Address", "Concessionaria City", "Concessionaria State", "12345678", "11987654321", "concessionaria@example.com", 10);
 
@@ -128,7 +128,7 @@ namespace intelectah.Tests.Domain
 
         [Fact]
         [Trait("Domain", "Update Concessionaria")]
-        public void UpdateConcessionaria_WithEmptyCidade_ThrowsDomainExceptionValidation()
+        public void UpdateConcessionaria_WithInvalidCidade_ThrowsDomainExceptionValidation()
         {
             var concessionaria = new Concessionaria("Concessionaria Name", "Concessionaria Address", "Concessionaria City", "Concessionaria State", "12345678", "11987654321", "concessionaria@example.com", 10);
 
@@ -139,7 +139,7 @@ namespace intelectah.Tests.Domain
 
         [Fact]
         [Trait("Domain", "Update Concessionaria")]
-        public void UpdateConcessionaria_WithEmptyEstado_ThrowsDomainExceptionValidation()
+        public void UpdateConcessionaria_WithInvalidEstado_ThrowsDomainExceptionValidation()
         {
             var concessionaria = new Concessionaria("Concessionaria Name", "Concessionaria Address", "Concessionaria City", "Concessionaria State", "12345678", "11987654321", "concessionaria@example.com", 10);
 
@@ -150,7 +150,18 @@ namespace intelectah.Tests.Domain
 
         [Fact]
         [Trait("Domain", "Update Concessionaria")]
-        public void UpdateConcessionaria_WithEmptyCEP_ThrowsDomainExceptionValidation()
+        public void UpdateConcessionaria_WithInvalidName_ThrowsDomainExceptionValidation()
+        {
+            var concessionaria = new Concessionaria("Concessionaria Name", "Concessionaria Address", "Concessionaria City", "Concessionaria State", "12345678", "11987654321", "concessionaria@example.com", 10);
+
+            var exception = Assert.Throws<DomainExceptionValidation>(() => concessionaria.Update("", "Concessionaria Address", "Concessionaria City", "Concessionaria State", "12345678", "11987654321", "concessionaria@example.com", 10));
+
+            Assert.Equal("O nome é obrigatório", exception.Message);
+        }
+
+        [Fact]
+        [Trait("Domain", "Update Concessionaria")]
+        public void UpdateConcessionaria_WithInvalidCEP_ThrowsDomainExceptionValidation()
         {
             var concessionaria = new Concessionaria("Concessionaria Name", "Concessionaria Address", "Concessionaria City", "Concessionaria State", "12345678", "11987654321", "concessionaria@example.com", 10);
 
@@ -161,7 +172,7 @@ namespace intelectah.Tests.Domain
 
         [Fact]
         [Trait("Domain", "Update Concessionaria")]
-        public void UpdateConcessionaria_WithEmptyTelefone_ThrowsDomainExceptionValidation()
+        public void UpdateConcessionaria_WithInvalidTelefone_ThrowsDomainExceptionValidation()
         {
             var concessionaria = new Concessionaria("Concessionaria Name", "Concessionaria Address", "Concessionaria City", "Concessionaria State", "12345678", "11987654321", "concessionaria@example.com", 10);
 
@@ -172,7 +183,7 @@ namespace intelectah.Tests.Domain
 
         [Fact]
         [Trait("Domain", "Update Concessionaria")]
-        public void UpdateConcessionaria_WithEmptyEmail_ThrowsDomainExceptionValidation()
+        public void UpdateConcessionaria_WithInvalidEmail_ThrowsDomainExceptionValidation()
         {
             var concessionaria = new Concessionaria("Concessionaria Name", "Concessionaria Address", "Concessionaria City", "Concessionaria State", "12345678", "11987654321", "concessionaria@example.com", 10);
 
