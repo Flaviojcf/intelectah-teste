@@ -20,7 +20,7 @@ namespace intelectah.Tests.Domain
 
         [Fact]
         [Trait("Domain", "Create Cliente")]
-        public void CreateCliente_WithEmptyName_ThrowsDomainExceptionValidation()
+        public void CreateCliente_WithInvalidName_ThrowsDomainExceptionValidation()
         {
             var exception = Assert.Throws<DomainExceptionValidation>(() => new Cliente("", "12345678901", "11987654321"));
 
@@ -29,7 +29,7 @@ namespace intelectah.Tests.Domain
 
         [Fact]
         [Trait("Domain", "Create Cliente")]
-        public void CreateCliente_WithEmptyCPF_ThrowsDomainExceptionValidation()
+        public void CreateCliente_WithInvalidCPF_ThrowsDomainExceptionValidation()
         {
             var exception = Assert.Throws<DomainExceptionValidation>(() => new Cliente("Client Name", "", "11987654321"));
 
@@ -38,7 +38,7 @@ namespace intelectah.Tests.Domain
 
         [Fact]
         [Trait("Domain", "Create Cliente")]
-        public void CreateCliente_WithEmptyTelefone_ThrowsDomainExceptionValidation()
+        public void CreateCliente_WithInvalidTelefone_ThrowsDomainExceptionValidation()
         {
             var exception = Assert.Throws<DomainExceptionValidation>(() => new Cliente("Client Name", "12345678901", ""));
 
@@ -61,7 +61,7 @@ namespace intelectah.Tests.Domain
 
         [Fact]
         [Trait("Domain", "Update Cliente")]
-        public void UpdateCliente_WithEmptyName_ThrowsDomainExceptionValidation()
+        public void UpdateCliente_WithInvalidName_ThrowsDomainExceptionValidation()
         {
             var cliente = new Cliente("Client Name", "12345678901", "11987654321");
 
@@ -72,7 +72,7 @@ namespace intelectah.Tests.Domain
 
         [Fact]
         [Trait("Domain", "Update Cliente")]
-        public void UpdateCliente_WithEmptyCPF_ThrowsDomainExceptionValidation()
+        public void UpdateCliente_WithInvalidCPF_ThrowsDomainExceptionValidation()
         {
 
             var cliente = new Cliente("Client Name", "12345678901", "11987654321");
@@ -84,7 +84,7 @@ namespace intelectah.Tests.Domain
 
         [Fact]
         [Trait("Domain", "Update Cliente")]
-        public void UpdateCliente_WithEmptyTelefone_ThrowsDomainExceptionValidation()
+        public void UpdateCliente_WithInvalidTelefone_ThrowsDomainExceptionValidation()
         {
             var cliente = new Cliente("Client Name", "12345678901", "11987654321");
 
