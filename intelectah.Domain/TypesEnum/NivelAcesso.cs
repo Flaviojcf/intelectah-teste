@@ -1,4 +1,4 @@
-﻿namespace intelectah.Domain.Enum
+﻿namespace intelectah.Domain.TypesEnum
 {
     public enum NivelAcesso
     {
