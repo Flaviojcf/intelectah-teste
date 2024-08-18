@@ -1,7 +1,17 @@
-﻿namespace intelectah.Domain.Entities
+﻿using intelectah.Domain.Enum;
+
+namespace intelectah.Domain.Entities
 {
     public class Usuario : BaseEntity
     {
+        public Usuario(string nome, string senha, string email, NivelAcesso nivelAcesso)
+        {
+            Nome = nome;
+            Senha = senha;
+            Email = email;
+            NivelAcesso = nivelAcesso;
+        }
+
         public string Nome { get; private set; }
         public string Senha { get; private set; }
         public string Email { get; private set; }
