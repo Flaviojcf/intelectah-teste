@@ -1,18 +1,18 @@
-﻿namespace intelectah.Domain.Entities
+﻿using intelectah.Domain.Validation;
+
+namespace intelectah.Domain.Entities
 {
     public class Venda : BaseEntity
     {
-        public Venda(DateTime dataVenda, decimal precoVenda, string protocoloVenda, int veiculoID, Veiculo veiculo, int concessionariaID, Concessionaria concessionaria, int clienteID, Cliente cliente)
+        public Venda(DateTime dataVenda, decimal precoVenda, string protocoloVenda, int veiculoID, int concessionariaID, int clienteID)
         {
+            ValidateDomain(dataVenda, precoVenda, protocoloVenda, veiculoID, concessionariaID, clienteID);
             DataVenda = dataVenda;
             PrecoVenda = precoVenda;
             ProtocoloVenda = protocoloVenda;
             VeiculoID = veiculoID;
-            Veiculo = veiculo;
             ConcessionariaID = concessionariaID;
-            Concessionaria = concessionaria;
             ClienteID = clienteID;
-            Cliente = cliente;
         }
 
         public DateTime DataVenda { get; private set; }
@@ -27,6 +27,16 @@
 
         public int ClienteID { get; private set; }
         public Cliente Cliente { get; private set; }
+
+        private static void ValidateDomain(DateTime dataVenda, decimal precoVenda, string protocoloVenda, int veiculoID, int concessionariaID, int clienteID)
+        {
+            DomainExceptionValidation.When(dataVenda == default(DateTime), "A data da venda é obrigatória");
+            DomainExceptionValidation.When(precoVenda <= 0, "O preço da venda deve ser maior que zero");
+            DomainExceptionValidation.When(string.IsNullOrEmpty(protocoloVenda), "O protocolo de venda é obrigatório");
+            DomainExceptionValidation.When(veiculoID <= 0, "O ID do veículo deve ser válido");
+            DomainExceptionValidation.When(concessionariaID <= 0, "O ID da concessionária deve ser válido");
+            DomainExceptionValidation.When(clienteID <= 0, "O ID do cliente deve ser válido");
+        }
     }
 
 }
