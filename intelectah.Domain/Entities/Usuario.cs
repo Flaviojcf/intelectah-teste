@@ -1,4 +1,4 @@
-﻿using intelectah.Domain.Enum;
+﻿using intelectah.Domain.TypesEnum;
 
 namespace intelectah.Domain.Entities
 {
