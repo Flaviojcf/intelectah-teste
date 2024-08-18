@@ -30,7 +30,18 @@ namespace intelectah.Domain.Entities
         public ICollection<Venda> Vendas { get; private set; }
 
 
-
+        public void Update(string nome, string endereco, string cidade, string estado, string cep, string telefone, string email, int capacidadeMaximaVeiculos)
+        {
+            ValidateDomain(nome, endereco, cidade, estado, cep, telefone, email, capacidadeMaximaVeiculos);
+            Nome = nome;
+            Endereco = endereco;
+            Cidade = cidade;
+            Estado = estado;
+            CEP = cep;
+            Telefone = telefone;
+            Email = email;
+            CapacidadeMaximaVeiculos = capacidadeMaximaVeiculos;
+        }
 
         private static void ValidateDomain(string nome, string endereco, string cidade, string estado, string cep, string telefone, string email, int capacidadeMaximaVeiculos)
         {
