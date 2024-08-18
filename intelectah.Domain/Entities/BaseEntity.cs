@@ -6,8 +6,8 @@ namespace intelectah.Domain.Entities
         protected BaseEntity() { }
         public int Id { get; private set; }
         public DateTime CreatedAt { get; private set; } = DateTime.Now;
-        public DateTime UpdatedAt { get; private set; }
-        public bool IsActive { get; private set; }
+        public DateTime UpdatedAt { get; private set; } = DateTime.Now;
+        public bool IsActive { get; private set; } = true;
 
         public void Active()
         {
