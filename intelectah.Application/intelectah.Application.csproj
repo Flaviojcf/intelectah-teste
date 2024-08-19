@@ -15,8 +15,4 @@
     <ProjectReference Include="..\intelectah.Domain\intelectah.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Validators\" />
-  </ItemGroup>
-
 </Project>
