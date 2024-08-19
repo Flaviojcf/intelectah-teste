@@ -23,7 +23,7 @@ namespace intelectah.Domain.Entities
         public string Descricao { get; private set; }
 
         public int FabricanteID { get; private set; }
-        public Fabricante Fabricante { get; private set; }
+        //public Fabricante Fabricante { get; private set; }
 
         public void Update(string modelo, int anoFabricacao, decimal preco, TipoVeiculo tipoVeiculo, string descricao, int fabricanteID)
         {

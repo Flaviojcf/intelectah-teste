@@ -27,7 +27,7 @@ namespace intelectah.Domain.Entities
         public string Email { get; private set; }
         public int CapacidadeMaximaVeiculos { get; private set; }
 
-        public ICollection<Venda> Vendas { get; private set; }
+        //public ICollection<Venda> Vendas { get; private set; }
 
 
         public void Update(string nome, string endereco, string cidade, string estado, string cep, string telefone, string email, int capacidadeMaximaVeiculos)
