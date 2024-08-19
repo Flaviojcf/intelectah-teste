@@ -20,13 +20,13 @@ namespace intelectah.Domain.Entities
         public string ProtocoloVenda { get; private set; }
 
         public int VeiculoID { get; private set; }
-        public Veiculo Veiculo { get; private set; }
+        //public Veiculo Veiculo { get; private set; }
 
         public int ConcessionariaID { get; private set; }
-        public Concessionaria Concessionaria { get; private set; }
+        //public Concessionaria Concessionaria { get; private set; }
 
         public int ClienteID { get; private set; }
-        public Cliente Cliente { get; private set; }
+        //public Cliente Cliente { get; private set; }
 
         private static void ValidateDomain(DateTime dataVenda, decimal precoVenda, string protocoloVenda, int veiculoID, int concessionariaID, int clienteID)
         {
