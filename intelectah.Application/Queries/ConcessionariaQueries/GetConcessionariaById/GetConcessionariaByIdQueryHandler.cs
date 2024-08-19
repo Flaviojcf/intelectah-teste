@@ -11,9 +11,7 @@ namespace intelectah.Application.Queries.ConcessionariaQueries.GetConcessionaria
 
         public async Task<Concessionaria> Handle(GetConcessionariaByIdQuery request, CancellationToken cancellationToken)
         {
-            var concessionaria = await _concessionariaRepository.GetByIdAsync(request.Id);
-
-            return concessionaria;
+            return await _concessionariaRepository.GetByIdAsync(request.Id);
         }
     }
 }
