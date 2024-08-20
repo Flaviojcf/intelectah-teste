@@ -1,5 +1,7 @@
+using intelectah.Application.Commands.UsuarioCommands;
 using intelectah.Domain.TypesEnum;
 using intelectah.MVC.Models;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -8,10 +10,12 @@ namespace intelectah.MVC.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IMediator _mediator;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IMediator mediator)
         {
             _logger = logger;
+            _mediator = mediator;
         }
 
         public IActionResult Index()
@@ -44,8 +48,21 @@ namespace intelectah.MVC.Controllers
                     })
             };
 
-            return PartialView("_Register", model);
+            return View("Register", model);
         }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Cadastrar(RegisterViewModel model)
+        {
+            var createUsuarioCommand = new CreateUsuarioCommand(model.Nome, model.Senha, model.Email, model.NivelAcesso);
+
+
+            var id = await _mediator.Send(createUsuarioCommand);
+
+            return View();
+        }
+
 
     }
 }
