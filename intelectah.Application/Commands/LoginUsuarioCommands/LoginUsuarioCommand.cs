@@ -1,7 +1,7 @@
 ﻿using intelectah.Application.OutPutModels;
 using MediatR;
 
-namespace intelectah.Application.Commands.LoginUsuario
+namespace intelectah.Application.Commands.LoginUsuarioCommands
 {
     public class LoginUsuarioCommand(string email, string password) : IRequest<LoginUsuarioOutputModel>
     {
