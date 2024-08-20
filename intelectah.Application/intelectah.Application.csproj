@@ -15,4 +15,8 @@
     <ProjectReference Include="..\intelectah.Domain\intelectah.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Queries\ConcessionariaQueries\NovaPasta\" />
+  </ItemGroup>
+
 </Project>
