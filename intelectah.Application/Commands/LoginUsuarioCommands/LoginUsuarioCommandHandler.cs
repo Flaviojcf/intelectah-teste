@@ -3,7 +3,7 @@ using intelectah.Domain.Repositories;
 using intelectah.Domain.Services;
 using MediatR;
 
-namespace intelectah.Application.Commands.LoginUsuario
+namespace intelectah.Application.Commands.LoginUsuarioCommands
 {
     public class LoginUsuarioCommandHandler(IAuthService authService, IUsuarioRepository usuarioRepository) : IRequestHandler<LoginUsuarioCommand, LoginUsuarioOutputModel>
     {
