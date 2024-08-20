@@ -1,6 +1,7 @@
+using intelectah.Domain.TypesEnum;
 using intelectah.MVC.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace intelectah.MVC.Controllers
 {
@@ -18,15 +19,33 @@ namespace intelectah.MVC.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        [HttpPost]
+        public IActionResult Login(LoginViewModel model)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View(model);
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [HttpGet]
+        public IActionResult Register()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var model = new RegisterViewModel
+            {
+                NivelAcessos = Enum.GetValues(typeof(NivelAcesso))
+                    .Cast<NivelAcesso>()
+                    .Select(n => new SelectListItem
+                    {
+                        Value = n.ToString(),
+                        Text = n.ToString()
+                    })
+            };
+
+            return PartialView("_Register", model);
         }
+
     }
 }
