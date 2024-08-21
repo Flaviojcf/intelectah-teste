@@ -4,10 +4,11 @@
     ViewData["Title"] = "Login";
 }
 
+<link href="~/css/sign-in.css" rel="stylesheet" />
 
 <body class="d-flex align-items-center py-4 bg-body-tertiary">
     <main class="form-signin w-100 m-auto" id="login">
-        <form asp-action="Login" method="post">
+        <form action="/Usuario/Autenticar" method="post">
             <h1 class="h3 mb-3 fw-normal">Fazer Login</h1>
 
             <div class="form-floating">
@@ -25,18 +26,11 @@
 
             <button class="btn btn-primary w-100 py-2" type="submit">Login</button>
 
-            <a href="/Home/Register" class="btn btn-secondary w-100 mt-2">Registrar-se</a>
+            <a href="/Usuario/Register" class="btn btn-secondary w-100 mt-2">Criar conta</a>
 
 
         </form>
     </main>
 </body>
 
-
-<link href="~/css/sign-in.css" rel="stylesheet" />
-
-<script src="~/js/color-mode.js"></script>
-<script src="~/lib/jquery/dist/jquery.min.js"></script>
-<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 <script src="~/js/Home/home.js"></script>

@@ -23,46 +23,5 @@ namespace intelectah.MVC.Controllers
             return View();
         }
 
-        [HttpPost]
-        public IActionResult Login(LoginViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
-            return View(model);
-        }
-
-        [HttpGet]
-        public IActionResult Register()
-        {
-            var model = new RegisterViewModel
-            {
-                NivelAcessos = Enum.GetValues(typeof(NivelAcesso))
-                    .Cast<NivelAcesso>()
-                    .Select(n => new SelectListItem
-                    {
-                        Value = n.ToString(),
-                        Text = n.ToString()
-                    })
-            };
-
-            return View("Register", model);
-        }
-
-
-        [HttpPost]
-        public async Task<IActionResult> Cadastrar(RegisterViewModel model)
-        {
-            var createUsuarioCommand = new CreateUsuarioCommand(model.Nome, model.Senha, model.Email, model.NivelAcesso);
-
-
-            var id = await _mediator.Send(createUsuarioCommand);
-
-            return View();
-        }
-
-
     }
 }
