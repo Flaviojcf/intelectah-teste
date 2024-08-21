@@ -16,7 +16,7 @@ namespace intelectah.Application.Commands.UsuarioCommands
 
             var passwordHash = _authService.ComputeSha256Hash(request.Senha);
 
-            var newUsuario = new Usuario(request.Nome, passwordHash, request.Email, request.NivelAcesso);
+            var newUsuario = new Usuario(request.Nome.Trim(), passwordHash.Trim(), request.Email.Trim(), request.NivelAcesso);
 
             await _usuarioRepository.CreateAsync(newUsuario);
 
