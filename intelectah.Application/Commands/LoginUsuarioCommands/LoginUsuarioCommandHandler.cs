@@ -1,6 +1,6 @@
 ﻿using intelectah.Application.OutPutModels;
 using intelectah.Domain.Repositories;
-using intelectah.Domain.Services;
+using intelectah.Infrastructure.Auth;
 using MediatR;
 
 namespace intelectah.Application.Commands.LoginUsuarioCommands

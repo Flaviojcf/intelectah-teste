@@ -1,5 +1,4 @@
 ﻿using intelectah.Domain.Repositories;
-using intelectah.Domain.Services;
 using intelectah.Infrastructure.Auth;
 using intelectah.Infrastructure.Persistance;
 using intelectah.Infrastructure.Persistance.Repositories;
