@@ -8,13 +8,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddRazorPages();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddMVC();
 builder.Services.AddApplication();
 builder.Services.AddMediatR(typeof(CreateUsuarioCommand));
 
 var app = builder.Build();
+
+
+//app.UseMiddleware<TokenMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -49,6 +51,5 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-app.MapRazorPages();
 
 app.Run();

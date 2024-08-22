@@ -6,7 +6,7 @@
     } else if (type === 'danger') {
         toastTypeClass = 'bg-danger text-white';
     } else {
-        toastTypeClass = 'bg-secondary text-white'; 
+        toastTypeClass = 'bg-secondary text-white';
     }
 
     var toastHTML = `
@@ -21,7 +21,7 @@
     `;
 
     var toastContainer = document.createElement('div');
-    toastContainer.className = 'toast-container position-fixed bottom-0 end-0 p-3';
+    toastContainer.className = 'toast-container position-fixed top-0 end-0 p-3';  
     toastContainer.innerHTML = toastHTML;
     document.body.appendChild(toastContainer);
 

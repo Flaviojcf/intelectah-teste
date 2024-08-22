@@ -1,5 +1,6 @@
-html {
+html,body {
   font-size: 14px;
+  height: 100%;
 }
 
 @media (min-width: 768px) {
@@ -12,13 +13,7 @@ html {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
-}
-
 body {
-    margin-bottom: 60px;
     --bs-bg-opacity: 1;
     background-color: rgba(30, 35, 40, var(--bs-bg-opacity));
 }

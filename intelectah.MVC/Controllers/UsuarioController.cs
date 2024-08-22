@@ -19,14 +19,46 @@ namespace intelectah.MVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(LoginViewModel model)
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
 
-            return View("Dashboard/Index");
+            try
+            {
+                var loginUsuarioCommand = new LoginUsuarioCommand(model.Email, model.Senha);
+
+                var loginUsuarioModel = await _mediator.Send(loginUsuarioCommand);
+
+                var cookieOptions = new CookieOptions
+                {
+                    Expires = DateTimeOffset.Now.AddHours(1),
+                    HttpOnly = true,
+                    Secure = Request.IsHttps
+                };
+
+                Response.Cookies.Append("AuthToken", loginUsuarioModel.Token, cookieOptions);
+
+                return RedirectToAction("Index", "DashBoard");
+            }
+            catch (UsuarioAlreadyExistException ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
+        }
+
+        public IActionResult Logout()
+        {
+
+            Response.Cookies.Delete("AuthToken");
+
+            return RedirectToAction("~/Views/Home/Login.cshtml");
         }
 
         [HttpGet]
-        public IActionResult Register()
+        public IActionResult Cadastrar()
         {
             var model = new RegisterUsuarioViewModel
             {
@@ -42,7 +74,7 @@ namespace intelectah.MVC.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Cadastrar(RegisterUsuarioViewModel model)
+        public async Task<IActionResult> NewAccount(RegisterUsuarioViewModel model)
         {
             ModelState.Remove("NivelAcessos");
 
@@ -73,25 +105,5 @@ namespace intelectah.MVC.Controllers
         }
 
 
-        [HttpPost]
-        public async Task<IActionResult> Autenticar(LoginViewModel model)
-        {
-            try
-            {
-                var loginUsuarioCommand = new LoginUsuarioCommand(model.Email, model.Senha);
-
-                var loginUsuarioModel = await _mediator.Send(loginUsuarioCommand);
-
-                return Json(new { success = true, message = loginUsuarioModel });
-            }
-            catch (UsuarioAlreadyExistException ex)
-            {
-                return Json(new { success = false, message = ex.Message });
-            }
-            catch (Exception ex)
-            {
-                return Json(new { success = false, message = ex.Message });
-            }
-        }
     }
 }
