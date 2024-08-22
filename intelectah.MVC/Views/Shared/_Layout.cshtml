@@ -5,22 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - intelectah</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/intelectah.MVC.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/js/Shared/toastUtils.js"></script>
 </head>
 <body class="d-flex flex-column">
+
     <header>
+
         <nav class="navbar navbar-light bg-white">
             <div class="container">
-                <a class="navbar-brand" href="#">
-                    <img src="~/img/logo-intelectah.png" alt="" width="220" height="46">
-                </a>
+                <img src="~/img/logo-intelectah.png" alt="" width="220" height="46">
             </div>
         </nav>
+
     </header>
 
     <main role="main" class="flex-grow-1 d-flex align-items-center justify-content-center">
@@ -38,5 +38,6 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>

@@ -19,14 +19,30 @@ namespace intelectah.MVC.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(LoginViewModel model)
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
 
-            return View("Dashboard/Index");
+            try
+            {
+                var loginUsuarioCommand = new LoginUsuarioCommand(model.Email, model.Senha);
+
+                var loginUsuarioModel = await _mediator.Send(loginUsuarioCommand);
+
+                return View("~/Views/Dashboard/Index.cshtml");
+            }
+            catch (UsuarioAlreadyExistException ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
+
         }
 
         [HttpGet]
-        public IActionResult Register()
+        public IActionResult Cadastrar()
         {
             var model = new RegisterUsuarioViewModel
             {
@@ -42,7 +58,7 @@ namespace intelectah.MVC.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Cadastrar(RegisterUsuarioViewModel model)
+        public async Task<IActionResult> NewAccount(RegisterUsuarioViewModel model)
         {
             ModelState.Remove("NivelAcessos");
 
@@ -73,25 +89,5 @@ namespace intelectah.MVC.Controllers
         }
 
 
-        [HttpPost]
-        public async Task<IActionResult> Autenticar(LoginViewModel model)
-        {
-            try
-            {
-                var loginUsuarioCommand = new LoginUsuarioCommand(model.Email, model.Senha);
-
-                var loginUsuarioModel = await _mediator.Send(loginUsuarioCommand);
-
-                return Json(new { success = true, message = loginUsuarioModel });
-            }
-            catch (UsuarioAlreadyExistException ex)
-            {
-                return Json(new { success = false, message = ex.Message });
-            }
-            catch (Exception ex)
-            {
-                return Json(new { success = false, message = ex.Message });
-            }
-        }
     }
 }

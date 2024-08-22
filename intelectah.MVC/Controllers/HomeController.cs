@@ -1,9 +1,5 @@
-using intelectah.Application.Commands.UsuarioCommands;
-using intelectah.Domain.TypesEnum;
-using intelectah.MVC.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace intelectah.MVC.Controllers
 {
@@ -20,8 +16,12 @@ namespace intelectah.MVC.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return View("Login");
         }
 
+        public IActionResult Login()
+        {
+            return View("Login");
+        }
     }
 }
