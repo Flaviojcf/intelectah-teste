@@ -11,53 +11,29 @@
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/js/Shared/toastUtils.js"></script>
-    <style>
-     
-        .wrapper {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            width: 100%;
-        }
-
-        .content {
-            flex: 1;
-            display: flex;
-            align-items: center; 
-            justify-content: center;
-        }
-
-        .container-center {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px; 
-        }
-    </style>
 </head>
-<body>
-    <div class="wrapper">
-        <header>
-            <nav class="navbar navbar-light bg-white">
-                <div class="container">
-                    <a class="navbar-brand" href="#">
-                        <img src="~/img/logo-intelectah.png" alt="" width="220" height="46">
-                    </a>
-                </div>
-            </nav>
-        </header>
-
-        <main role="main" class="content">
-            <div class="container container-center">
-                @RenderBody()
+<body class="d-flex flex-column">
+    <header>
+        <nav class="navbar navbar-light bg-white">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="~/img/logo-intelectah.png" alt="" width="220" height="46">
+                </a>
             </div>
-        </main>
+        </nav>
+    </header>
 
-        <footer id="contato" class="bg-light text-center">
-            <div class="container container-center p-4">
-                © 2024 Flaviojcf - Todos os Direitos Reservados
-            </div>
-        </footer>
-    </div>
+    <main role="main" class="flex-grow-1 d-flex align-items-center justify-content-center">
+        <div class="container container-center">
+            @RenderBody()
+        </div>
+    </main>
+
+    <footer id="contato" class="bg-light text-center">
+        <div class="container container-center p-4">
+            © 2024 Flaviojcf - Todos os Direitos Reservados
+        </div>
+    </footer>
 
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

@@ -6,30 +6,36 @@
 
 <link href="~/css/sign-in.css" rel="stylesheet" />
 
-<body class="d-flex align-items-center py-4 bg-body-tertiary">
-    <main class="form-signin w-100 m-auto" id="login">
+<body class="d-flex align-items-center justify-content-center min-vh-100 py-4 bg-body-tertiary">
+    <main class="form-signin w-100 m-auto" style="max-width: 400px;" id="login">
+
         <form action="/Usuario/Autenticar" method="post">
 
-            <div class="form-floating">
+            <div class="text-center mb-2">
+                <h1 class="h3 fw-bold">Login</h1>
+                <p class="text-white">Insira seu e-mail abaixo para acessar sua conta</p>
+            </div>
+
+            <div class="form-floating mb-3">
                 <input asp-for="Email" class="form-control" id="floatingInput" placeholder="nome@exemplo.com">
                 <label for="floatingInput">Email</label>
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
 
-            <div class="form-floating">
+            <div class="form-floating mb-3">
                 <input asp-for="Senha" class="form-control" id="floatingPassword" type="password" placeholder="Senha">
                 <label for="floatingPassword">Senha</label>
                 <span asp-validation-for="Senha" class="text-danger"></span>
             </div>
 
-
             <button class="btn btn-primary w-100 py-2" type="submit">Login</button>
 
             <a href="/Usuario/Register" class="btn btn-secondary w-100 mt-2">Criar conta</a>
 
-
         </form>
+
     </main>
 </body>
+
 
 <script src="~/js/Home/home.js"></script>
