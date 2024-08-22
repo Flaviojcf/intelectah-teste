@@ -18,5 +18,11 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
+    --bs-bg-opacity: 1;
+    background-color: rgba(30, 35, 40, var(--bs-bg-opacity));
+}
+
+h1 {
+    color: white;
 }

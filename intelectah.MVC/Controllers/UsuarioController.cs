@@ -21,18 +21,14 @@ namespace intelectah.MVC.Controllers
         [HttpPost]
         public IActionResult Login(LoginViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                return RedirectToAction("Index", "Home");
-            }
 
-            return View(model);
+            return View("Dashboard/Index");
         }
 
         [HttpGet]
         public IActionResult Register()
         {
-            var model = new RegisterViewModel
+            var model = new RegisterUsuarioViewModel
             {
                 NivelAcessos = Enum.GetValues(typeof(NivelAcesso)).Cast<NivelAcesso>().Select(n => new SelectListItem
                 {
@@ -46,8 +42,18 @@ namespace intelectah.MVC.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Cadastrar(RegisterViewModel model)
+        public async Task<IActionResult> Cadastrar(RegisterUsuarioViewModel model)
         {
+            ModelState.Remove("NivelAcessos");
+
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Values.SelectMany(v => v.Errors)
+                                               .Select(e => e.ErrorMessage)
+                                               .ToList();
+
+                return Json(new { success = false, message = errors[0] });
+            }
             try
             {
                 var createUsuarioCommand = new CreateUsuarioCommand(model.Nome, model.Senha, model.Email, model.NivelAcesso);
@@ -57,6 +63,10 @@ namespace intelectah.MVC.Controllers
                 return Json(new { success = true, message = "Cadastro realizado com sucesso!" });
             }
             catch (UsuarioAlreadyExistException ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
+            catch (Exception ex)
             {
                 return Json(new { success = false, message = ex.Message });
             }
@@ -78,8 +88,10 @@ namespace intelectah.MVC.Controllers
             {
                 return Json(new { success = false, message = ex.Message });
             }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
         }
-
-
     }
 }
