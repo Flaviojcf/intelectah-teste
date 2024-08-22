@@ -5,19 +5,22 @@ using MediatR;
 
 namespace intelectah.Application.Commands.UsuarioCommands
 {
-    public class CreateUsuarioCommandHandler(IUsuarioRepository usuarioRepository, IAuthService authService) : IRequestHandler<CreateUsuarioCommand, int>
+    public class CreateUsuarioCommandHandler(IUsuarioRepository usuarioRepository, IAuthService authService, IVerifyUsuarioRulesService verifyUsuarioRulesService) : IRequestHandler<CreateUsuarioCommand, int>
     {
         private readonly IUsuarioRepository _usuarioRepository = usuarioRepository;
         private readonly IAuthService _authService = authService;
+        private readonly IVerifyUsuarioRulesService _verifyUsuarioRulesService = verifyUsuarioRulesService;
         public async Task<int> Handle(CreateUsuarioCommand request, CancellationToken cancellationToken)
         {
+            await _verifyUsuarioRulesService.ValidateUsuarioEmail(request.Email);
+
             var passwordHash = _authService.ComputeSha256Hash(request.Senha);
 
-            var usuario = new Usuario(request.Nome, passwordHash, request.Email, request.NivelAcesso);
+            var newUsuario = new Usuario(request.Nome.Trim(), passwordHash.Trim(), request.Email.Trim(), request.NivelAcesso);
 
-            await _usuarioRepository.CreateAsync(usuario);
+            await _usuarioRepository.CreateAsync(newUsuario);
 
-            return usuario.Id;
+            return newUsuario.Id;
         }
     }
 }

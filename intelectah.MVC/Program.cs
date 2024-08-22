@@ -1,10 +1,15 @@
+using intelectah.Application;
+using intelectah.Application.Commands.UsuarioCommands;
 using intelectah.Infrastructure;
+using MediatR;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddApplication();
+builder.Services.AddMediatR(typeof(CreateUsuarioCommand));
 
 var app = builder.Build();
 

@@ -1,4 +1,6 @@
 ﻿using intelectah.Domain.Repositories;
+using intelectah.Domain.Services;
+using intelectah.Infrastructure.Auth;
 using intelectah.Infrastructure.Persistance;
 using intelectah.Infrastructure.Persistance.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +22,11 @@ namespace intelectah.Infrastructure
         private static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+            services.AddScoped<IVeiculoRepository, VeiculoRepository>();
+            services.AddScoped<IFabricanteRepository, FabricanteRepository>();
+            services.AddScoped<IClienteRepository, ClienteRepository>();
+            services.AddScoped<IConcessionariaRepository, ConcessionariaRepository>();
+            services.AddScoped<IAuthService, AuthService>();
 
             return services;
         }

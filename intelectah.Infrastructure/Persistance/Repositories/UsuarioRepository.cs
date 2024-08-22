@@ -31,6 +31,11 @@ namespace intelectah.Infrastructure.Persistance.Repositories
             return await _dbContext.Usuario.SingleOrDefaultAsync(u => u.Email == email && u.Senha == passwordHash);
         }
 
+        public async Task<Usuario> GetUsuarioByEmailAsync(string email)
+        {
+            return await _dbContext.Usuario.SingleOrDefaultAsync(u => u.Email == email);
+        }
+
         public Task SaveChangesAsync()
         {
             throw new NotImplementedException();
