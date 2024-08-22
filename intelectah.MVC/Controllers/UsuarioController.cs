@@ -28,7 +28,16 @@ namespace intelectah.MVC.Controllers
 
                 var loginUsuarioModel = await _mediator.Send(loginUsuarioCommand);
 
-                return View("~/Views/Dashboard/Index.cshtml");
+                var cookieOptions = new CookieOptions
+                {
+                    Expires = DateTimeOffset.Now.AddHours(1),
+                    HttpOnly = true,
+                    Secure = Request.IsHttps
+                };
+
+                Response.Cookies.Append("AuthToken", loginUsuarioModel.Token, cookieOptions);
+
+                return RedirectToAction("Index", "DashBoard");
             }
             catch (UsuarioAlreadyExistException ex)
             {
@@ -38,7 +47,14 @@ namespace intelectah.MVC.Controllers
             {
                 return Json(new { success = false, message = ex.Message });
             }
+        }
 
+        public IActionResult Logout()
+        {
+
+            Response.Cookies.Delete("AuthToken");
+
+            return RedirectToAction("~/Views/Home/Login.cshtml");
         }
 
         [HttpGet]
