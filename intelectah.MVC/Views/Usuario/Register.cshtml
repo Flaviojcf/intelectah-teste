@@ -1,11 +1,15 @@
-﻿@model intelectah.MVC.Models.RegisterViewModel
+﻿@model intelectah.MVC.Models.RegisterUsuarioViewModel
+
+
+@{
+    ViewData["Title"] = "Cadastro";
+}
 
 <link href="~/css/sign-in.css" rel="stylesheet" />
 
 <body class="d-flex align-items-center py-4 bg-body-tertiary">
     <main class="form-signin w-100 m-auto" id="register">
         <form id="registerForm" action="/Usuario/Cadastrar" method="post">
-            <h1 class="h3 mb-3 fw-normal">Criar Conta</h1>
 
             <div class="form-floating">
                 <select asp-for="NivelAcesso" asp-items="Model.NivelAcessos" class="form-control" id="floatingNivelAcesso">

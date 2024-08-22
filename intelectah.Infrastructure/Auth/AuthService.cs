@@ -1,5 +1,4 @@
-﻿using intelectah.Domain.Services;
-using intelectah.Domain.TypesEnum;
+﻿using intelectah.Domain.TypesEnum;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;

@@ -1,6 +1,6 @@
 ﻿using intelectah.Domain.TypesEnum;
 
-namespace intelectah.Domain.Services
+namespace intelectah.Infrastructure.Auth
 {
     public interface IAuthService
     {

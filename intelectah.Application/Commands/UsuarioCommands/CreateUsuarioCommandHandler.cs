@@ -1,22 +1,23 @@
-﻿using intelectah.Domain.Entities;
+﻿using intelectah.Application.Services;
+using intelectah.Domain.Entities;
 using intelectah.Domain.Repositories;
-using intelectah.Domain.Services;
+using intelectah.Infrastructure.Auth;
 using MediatR;
 
 namespace intelectah.Application.Commands.UsuarioCommands
 {
-    public class CreateUsuarioCommandHandler(IUsuarioRepository usuarioRepository, IAuthService authService, IVerifyUsuarioRulesService verifyUsuarioRulesService) : IRequestHandler<CreateUsuarioCommand, int>
+    public class CreateUsuarioCommandHandler(IUsuarioRepository usuarioRepository, IAuthService authService, IValidateUsuarioRulesService verifyUsuarioRulesService) : IRequestHandler<CreateUsuarioCommand, int>
     {
         private readonly IUsuarioRepository _usuarioRepository = usuarioRepository;
         private readonly IAuthService _authService = authService;
-        private readonly IVerifyUsuarioRulesService _verifyUsuarioRulesService = verifyUsuarioRulesService;
+        private readonly IValidateUsuarioRulesService _verifyUsuarioRulesService = verifyUsuarioRulesService;
         public async Task<int> Handle(CreateUsuarioCommand request, CancellationToken cancellationToken)
         {
-            await _verifyUsuarioRulesService.ValidateUsuarioEmail(request.Email);
+            await _verifyUsuarioRulesService.ValidateUsuario(request);
 
             var passwordHash = _authService.ComputeSha256Hash(request.Senha);
 
-            var newUsuario = new Usuario(request.Nome.Trim(), passwordHash.Trim(), request.Email.Trim(), request.NivelAcesso);
+            var newUsuario = new Usuario(request.Nome, passwordHash, request.Email, request.NivelAcesso);
 
             await _usuarioRepository.CreateAsync(newUsuario);
 

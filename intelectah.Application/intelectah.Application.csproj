@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\intelectah.Domain\intelectah.Domain.csproj" />
+    <ProjectReference Include="..\intelectah.Infrastructure\intelectah.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
