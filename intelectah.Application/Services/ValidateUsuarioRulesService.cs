@@ -1,5 +1,6 @@
 ﻿using intelectah.Application.Commands.UsuarioCommands;
 using intelectah.Application.Queries.UsuarioQueries.GetUsuarioByEmail;
+using intelectah.Application.Services.Interfaces;
 using intelectah.Domain.Exceptions;
 using MediatR;
 
