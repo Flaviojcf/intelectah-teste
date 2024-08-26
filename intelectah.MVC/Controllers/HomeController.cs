@@ -16,11 +16,17 @@ namespace intelectah.MVC.Controllers
 
         public IActionResult Index()
         {
+            if (User.Identity.IsAuthenticated)
+                return RedirectToAction("Index", "Dashboard");
+
             return View("Login");
         }
 
         public IActionResult Login()
         {
+            if (User.Identity.IsAuthenticated)
+                return RedirectToAction("Index", "Dashboard");
+
             return View("Login");
         }
     }
