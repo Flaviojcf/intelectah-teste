@@ -1,4 +1,5 @@
 ﻿using intelectah.Application.Services;
+using intelectah.Application.Services.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace intelectah.Application
@@ -15,6 +16,7 @@ namespace intelectah.Application
         private static IServiceCollection AddServices(this IServiceCollection services)
         {
             services.AddScoped<IValidateUsuarioRulesService, ValidateUsuarioRulesService>();
+            services.AddScoped<IValidateFabricanteRulesService, ValidateFabricanteRulesService>();
 
             return services;
         }
