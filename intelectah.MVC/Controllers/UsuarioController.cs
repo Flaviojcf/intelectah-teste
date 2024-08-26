@@ -96,7 +96,7 @@ namespace intelectah.MVC.Controllers
             {
                 var createUsuarioCommand = new CreateUsuarioCommand(model.Nome, model.Senha, model.Email, model.NivelAcesso);
 
-                var id = await _mediator.Send(createUsuarioCommand);
+                await _mediator.Send(createUsuarioCommand);
 
                 return Json(new { success = true, message = "Cadastro realizado com sucesso!" });
             }
