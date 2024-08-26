@@ -7,6 +7,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - intelectah</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/layoutApp.css" asp-append-version="true" />
@@ -31,51 +32,54 @@
             <ul class="nav nav-pills d-flex flex-column fs-6 gap-4">
                 <li class="nav-item custom-hover">
                     <a href="@Url.Action("Index", "DashBoard")" class="nav-link text-white @(IsActive("Index", "DashBoard"))">
-                        <svg class="bi pe-none me-2" width="16" height="16"></svg>
+                        <i class="bi bi-house-door pe-none me-2"></i>
                         Home
                     </a>
                 </li>
 
                 <li class="nav-item custom-hover">
                     <a href="@Url.Action("Fabricantes", "Fabricante")" class="nav-link text-white @(IsActive("Fabricantes", "DashBoard"))">
-                        <svg class="bi pe-none me-2" width="16" height="16"></svg>
+                        <i class="bi bi-building pe-none me-2"></i>
                         Fabricantes
                     </a>
                 </li>
 
                 <li class="nav-item custom-hover">
                     <a href="@Url.Action("Veiculos", "DashBoard")" class="nav-link text-white @(IsActive("Veiculos", "DashBoard"))">
-                        <svg class="bi pe-none me-2" width="16" height="16"></svg>
-                        Veiculos
+                        <i class="bi bi-truck pe-none me-2"></i>
+                        Veículos
                     </a>
                 </li>
 
                 <li class="nav-item custom-hover">
                     <a href="@Url.Action("Concessionarias", "DashBoard")" class="nav-link text-white @(IsActive("Concessionarias", "DashBoard"))">
-                        <svg class="bi pe-none me-2" width="16" height="16"></svg>
+                        <i class="bi bi-shop-window pe-none me-2"></i>
                         Concessionárias
                     </a>
                 </li>
 
                 <li class="nav-item custom-hover">
                     <a href="@Url.Action("Vendas", "DashBoard")" class="nav-link text-white @(IsActive("Vendas", "DashBoard"))">
-                        <svg class="bi pe-none me-2" width="16" height="16"></svg>
+                        <i class="bi bi-cart pe-none me-2"></i>
                         Vendas
                     </a>
                 </li>
             </ul>
 
+
             <div class="dropdown mt-auto">
                 <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-person-circle me-2"></i>
                     <strong>@User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value</strong>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                     <li><a class="dropdown-item" href="@Url.Action("Logout", "Usuario")">Sair</a></li>
                 </ul>
             </div>
+
         </div>
 
-        <div class="container container-center">
+        <div class="container container-center mt-5" style="height: 100%;">
             @RenderBody()
         </div>
     </main>

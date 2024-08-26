@@ -32,8 +32,17 @@ namespace intelectah.MVC.Controllers
         }
 
 
+        [HttpGet]
+        public IActionResult Cadastrar()
+        {
+            var viewModel = new FabricantesViewModel();
+
+            return View("CriarFabricante", viewModel);
+        }
+
+
         [HttpPost]
-        public async Task<IActionResult> Cadastrar(FabricantesViewModel model)
+        public async Task<IActionResult> CadastrarFabricante(FabricantesViewModel model)
         {
             ModelState.Remove("Fabricantes");
 
