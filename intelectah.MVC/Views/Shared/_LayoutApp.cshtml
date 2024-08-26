@@ -37,12 +37,28 @@
                     </a>
                 </li>
 
-                <li class="nav-item custom-hover">
-                    <a href="@Url.Action("Fabricantes", "Fabricante")" class="nav-link text-white @(IsActive("Fabricantes", "DashBoard"))">
-                        <i class="bi bi-building pe-none me-2"></i>
-                        Fabricantes
-                    </a>
+                <li class="nav-item @(User.IsInRole("Administrador") ? "custom-hover" : "")">
+                    @if (User.IsInRole("Administrador"))
+                    {
+                        <a href="@Url.Action("Fabricantes", "Fabricante")"
+                           class="nav-link text-white @(IsActive("Fabricantes", "DashBoard"))">
+                            <i class="bi bi-building pe-none me-2"></i>
+                            Fabricantes
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="#"
+                           class="nav-link text-muted disabled"
+                           title="Acesso restrito"
+                           style="pointer-events: none;">
+                            <i class="bi bi-building pe-none me-2"></i>
+                            Fabricantes
+                        </a>
+                    }
                 </li>
+
+
 
                 <li class="nav-item custom-hover">
                     <a href="@Url.Action("Veiculos", "DashBoard")" class="nav-link text-white @(IsActive("Veiculos", "DashBoard"))">

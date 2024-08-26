@@ -1,4 +1,3 @@
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace intelectah.MVC.Controllers
@@ -19,6 +18,12 @@ namespace intelectah.MVC.Controllers
                 return RedirectToAction("Index", "Dashboard");
 
             return View("Login");
+        }
+
+        [HttpGet]
+        public IActionResult Unauthorized()
+        {
+            return View();
         }
     }
 }
