@@ -6,7 +6,7 @@
 }
 
 @{
-    ViewData["Title"] = "Cadastro";
+    ViewData["Title"] = "Fabricantes";
 }
 
 
@@ -46,8 +46,8 @@
                                         <td>@fabricante.AnoFundacao</td>
                                         <td>@fabricante.Website</td>
                                         <td class="text-center">
-                                            <a href="@Url.Action("Editar", "Fabricante", new { id = fabricante.Id })" class="btn btn-warning btn-sm"><i class="bi bi-pencil"></i> Editar</a>
-                                            <a href="@Url.Action("Deletar", "Fabricante", new { id = fabricante.Id })" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja deletar este fabricante?');"><i class="bi bi-trash"></i> Deletar</a>
+                                            <a onclick="FctEditarFabricante(@fabricante.Id)"; class="btn btn-warning btn-sm"><i class="bi bi-pencil"></i> Editar</a>
+                                            <a onclick="FctDeletarFabricante(@fabricante.Id)"; class="btn btn-danger btn-sm"><i class="bi bi-trash"></i> Deletar</a>
                                         </td>
                                         
                                     </tr>

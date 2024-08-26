@@ -1,11 +1,11 @@
-﻿@model intelectah.MVC.Models.FabricantesViewModel
+﻿@model intelectah.MVC.Models.UpdateFabricanteViewModel
 
 @{
     Layout = "~/Views/Shared/_LayoutApp.cshtml";
 }
 
 @{
-    ViewData["Title"] = "Cadastrar Fabricante";
+    ViewData["Title"] = "Editar Fabricante";
 }
 
 
@@ -15,18 +15,20 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a class="text-white"  href="@Url.Action("Index", "Dashboard", new { area = "" }, null)"><i class="bi bi-house-door"></i> Dashboard</a></li>
             <li class="breadcrumb-item"><a class="text-white" href="@Url.Action("Fabricantes", "Fabricante", new { area = "" }, null)"><i class="bi bi-building"></i> Fabricantes</a></li>
-            <li class="breadcrumb-item active" aria-current="page"><i class="bi bi-plus-square"></i> Cadastrar</li>
+            <li class="breadcrumb-item active" aria-current="page"><i class="bi bi-pencil"></i> Editar</li>
         </ol>
     </nav>
 
     <div class="col-md-8 offset-md-2 mt-5">
         <div class="card">
             <div class="card-header bg-primary text-white text-center">
-                <h4 class="mb-0">Adicionar Novo Fabricante</h4>
+                <h4 class="mb-0">Editar Fabricante</h4>
             </div>
             <div class="card-body">
-                @using (Html.BeginForm("CadastrarFabricante", "Fabricante", FormMethod.Post, new { id = "registerFabricanteForm" }))
+                @using (Html.BeginForm("EditarFabricante", "Fabricante", FormMethod.Post, new { id = "editFabricanteForm" }))
                 {
+                    @Html.HiddenFor(model=>Model.Id);
+
                     <div class="form-group">
                         @Html.LabelFor(model => model.Nome, "Nome do Fabricante", new { @class = "form-label" })
                         @Html.TextBoxFor(model => model.Nome, new { @class = "form-control", placeholder = "Insira o nome do fabricante" })
@@ -51,8 +53,8 @@
                         @Html.ValidationMessageFor(model => model.Website, "", new { @class = "text-danger" })
                     </div>
 
-                    <button id="submitButton" class="btn btn-primary w-100 py-2 mt-3" type="button" onclick="FctCadastrarFabricante(event)">
-                        Adicionar Fabricante
+                    <button id="submitButton" class="btn btn-primary w-100 py-2 mt-3" type="button" onclick="FctEditarFabricante(event)">
+                        Salvar 
                         <span id="spinner" class="spinner-border spinner-border-sm ms-2 d-none" role="status" aria-hidden="true"></span>
                     </button>
                 }
@@ -61,4 +63,4 @@
     </div>
 </div>
 
-<script src="~/js/Fabricante/cadastrarFabricante.js"></script>
+<script src="~/js/Fabricante/editarFabricante.js"></script>

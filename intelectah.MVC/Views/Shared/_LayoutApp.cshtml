@@ -14,6 +14,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="~/js/Shared/toastUtils.js"></script>
 </head>
 <body class="d-flex flex-column">
@@ -61,24 +62,67 @@
 
 
                 <li class="nav-item custom-hover">
-                    <a href="@Url.Action("Veiculos", "DashBoard")" class="nav-link text-white @(IsActive("Veiculos", "DashBoard"))">
-                        <i class="bi bi-truck pe-none me-2"></i>
-                        Veículos
-                    </a>
+                    @if (User.IsInRole("Gerente"))
+                    {
+                        <a href="@Url.Action("Veiculos", "Veiculo")"
+                           class="nav-link text-white @(IsActive("Veiculos", "Veiculos"))">
+                            <i class="bi bi-truck pe-none me-2"></i>
+                            Veiculos
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="#"
+                           class="nav-link text-muted disabled"
+                           title="Acesso restrito"
+                           style="pointer-events: none;">
+                            <i class="bi bi-truck pe-none me-2"></i>
+                            Veiculos
+                        </a>
+                    }
                 </li>
 
                 <li class="nav-item custom-hover">
-                    <a href="@Url.Action("Concessionarias", "DashBoard")" class="nav-link text-white @(IsActive("Concessionarias", "DashBoard"))">
-                        <i class="bi bi-shop-window pe-none me-2"></i>
-                        Concessionárias
-                    </a>
+
+                    @if (User.IsInRole("Administrador"))
+                    {
+                        <a href="@Url.Action("Concessionarias", "Concessionarias")"
+                           class="nav-link text-white @(IsActive("Concessionarias", "Concessionarias"))">
+                            <i class="bi bi-shop-window pe-none me-2"></i>
+                            Concessionarias
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="#"
+                           class="nav-link text-muted disabled"
+                           title="Acesso restrito"
+                           style="pointer-events: none;">
+                            <i class="bi bi-shop-window pe-none me-2"></i>
+                            Concessionarias
+                        </a>
+                    }
                 </li>
 
                 <li class="nav-item custom-hover">
-                    <a href="@Url.Action("Vendas", "DashBoard")" class="nav-link text-white @(IsActive("Vendas", "DashBoard"))">
-                        <i class="bi bi-cart pe-none me-2"></i>
-                        Vendas
-                    </a>
+                    @if (User.IsInRole("Vendedor"))
+                    {
+                        <a href="@Url.Action("Vendas", "Vendas")"
+                           class="nav-link text-white @(IsActive("Vendas", "Vendas"))">
+                            <i class="bi bi-cart pe-none me-2"></i>
+                            Vendas
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="#"
+                           class="nav-link text-muted disabled"
+                           title="Acesso restrito"
+                           style="pointer-events: none;">
+                            <i class="bi bi-cart pe-none me-2"></i>
+                            Vendas
+                        </a>
+                    }
                 </li>
             </ul>
 

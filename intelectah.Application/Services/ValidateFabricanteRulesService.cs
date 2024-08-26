@@ -1,4 +1,5 @@
 ﻿using intelectah.Application.Commands.FabricanteCommands.CreateFabricante;
+using intelectah.Application.Commands.FabricanteCommands.UpdateFabricante;
 using intelectah.Application.Queries.FabricanteQueries.GetFabricanteByName;
 using intelectah.Application.Services.Interfaces;
 using intelectah.Domain.Exceptions;
@@ -37,6 +38,16 @@ namespace intelectah.Application.Services
             command.Website = command.Website?.Trim();
         }
 
+        public async Task ValidateUpdateFabricante(UpdateFabricanteCommand command)
+        {
+            var query = new GetFabricanteByNameQuery(command.Nome);
 
+            var fabricante = await _mediator.Send(query);
+
+            if (fabricante != null && fabricante.Id != command.Id)
+            {
+                throw new FabricanteAlreadyExistException(fabricante.Nome);
+            }
+        }
     }
 }
