@@ -1,33 +1,38 @@
 ﻿using intelectah.Domain.Entities;
 using intelectah.Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace intelectah.Infrastructure.Persistance.Repositories
 {
-    public class FabricanteRepository : IFabricanteRepository
+    public class FabricanteRepository(IntelectahDbContext dbContext) : IFabricanteRepository
     {
-        public Task CreateAsync(Fabricante entity)
+        private readonly IntelectahDbContext _dbContext = dbContext;
+
+        public async Task CreateAsync(Fabricante fabricante)
         {
-            throw new NotImplementedException();
+            await _dbContext.Fabricante.AddAsync(fabricante);
+
+            await _dbContext.SaveChangesAsync();
         }
 
-        public Task<List<Fabricante>> GetAllAsync()
+        public async Task<List<Fabricante>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _dbContext.Fabricante.Where(f => f.IsActive).ToListAsync();
         }
 
-        public Task<Fabricante> GetByIdAsync(int id)
+        public async Task<Fabricante> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _dbContext.Fabricante.SingleOrDefaultAsync(f => f.Id == id);
         }
 
-        public Task<Fabricante> GetByNameAsync(string nome)
+        public async Task<Fabricante> GetByNameAsync(string nome)
         {
-            throw new NotImplementedException();
+            return await _dbContext.Fabricante.SingleOrDefaultAsync(f => f.Nome == nome);
         }
 
         public Task SaveChangesAsync()
         {
-            throw new NotImplementedException();
+            await _dbContext.SaveChangesAsync();
         }
     }
 }
