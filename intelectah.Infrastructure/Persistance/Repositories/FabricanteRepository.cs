@@ -30,7 +30,7 @@ namespace intelectah.Infrastructure.Persistance.Repositories
             return await _dbContext.Fabricante.SingleOrDefaultAsync(f => f.Nome == nome);
         }
 
-        public Task SaveChangesAsync()
+        public async Task SaveChangesAsync()
         {
             await _dbContext.SaveChangesAsync();
         }
