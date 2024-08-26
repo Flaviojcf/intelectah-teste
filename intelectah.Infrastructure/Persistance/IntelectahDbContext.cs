@@ -7,6 +7,7 @@ namespace intelectah.Infrastructure.Persistance
     public class IntelectahDbContext(DbContextOptions<IntelectahDbContext> options) : DbContext(options)
     {
         public DbSet<Usuario> Usuario { get; set; }
+        public DbSet<Fabricante> Fabricante { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
