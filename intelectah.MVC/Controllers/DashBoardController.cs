@@ -1,39 +1,72 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using intelectah.Application.Commands.FabricanteCommands.CreateFabricante;
+using intelectah.Application.Queries.FabricanteQueries.GetAllFabricantes;
+using intelectah.Domain.Exceptions;
+using intelectah.MVC.Models;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace intelectah.MVC.Controllers
 {
     [Authorize]
     public class DashBoardController : Controller
     {
+        private readonly IMediator _mediator;
+
+        public DashBoardController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
+
         public IActionResult Index()
         {
             return View();
         }
 
         [Authorize(Roles = "Administrador")]
-        public IActionResult Fabricantes()
+        public async Task<IActionResult> Fabricantes()
         {
-            ViewBag.Countries = GetCountries();
-            return View();
+            var getAllFabricantesQuery = new GetAllFabricantesQuery();
+
+            var viewModel = new FabricantesViewModel
+            {
+                Fabricantes = await _mediator.Send(getAllFabricantesQuery)
+            };
+
+            return View(viewModel);
         }
 
-        private List<SelectListItem> GetCountries()
+
+        [HttpPost]
+        public async Task<IActionResult> Cadastrar(FabricantesViewModel model)
         {
-            return new List<SelectListItem>
+            ModelState.Remove("Fabricantes");
+
+            if (!ModelState.IsValid)
             {
-                new SelectListItem { Value = "Brasil", Text = "Brasil" },
-                new SelectListItem { Value = "Estados Unidos", Text = "Estados Unidos" },
-                new SelectListItem { Value = "Canadá", Text = "Canadá" },
-                new SelectListItem { Value = "México", Text = "México" },
-                new SelectListItem { Value = "Alemanha", Text = "Alemanha" },
-                new SelectListItem { Value = "França", Text = "França" },
-                new SelectListItem { Value = "Reino Unido", Text = "Reino Unido" },
-                new SelectListItem { Value = "Japão", Text = "Japão" },
-                new SelectListItem { Value = "China", Text = "China" },
-                new SelectListItem { Value = "Austrália", Text = "Austrália" }
-            };
+                var errors = ModelState.Values.SelectMany(v => v.Errors)
+                                               .Select(e => e.ErrorMessage)
+                                               .ToList();
+
+                return Json(new { success = false, message = errors[0] });
+            }
+            try
+            {
+                var fabricanteCommand = new CreateFabricanteCommand(model.Nome, model.PaisOrigem, model.AnoFundacao, model.Website);
+
+                await _mediator.Send(fabricanteCommand);
+
+                return Json(new { success = true, message = "Cadastro realizado com sucesso!" });
+            }
+            catch (FabricanteAlreadyExistException ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
+
         }
 
     }
