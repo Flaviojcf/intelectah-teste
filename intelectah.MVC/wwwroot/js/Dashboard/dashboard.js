@@ -1,6 +1,7 @@
 ﻿$(function () {
     $('#fabricantesTable').DataTable();
 });
+
 function FctCadastrarFabricante(event) {
     event.preventDefault();
 
