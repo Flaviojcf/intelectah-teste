@@ -7,12 +7,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - intelectah</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/layoutApp.css" asp-append-version="true" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="~/js/Shared/toastUtils.js"></script>
 </head>
 <body class="d-flex flex-column">
@@ -31,51 +33,113 @@
             <ul class="nav nav-pills d-flex flex-column fs-6 gap-4">
                 <li class="nav-item custom-hover">
                     <a href="@Url.Action("Index", "DashBoard")" class="nav-link text-white @(IsActive("Index", "DashBoard"))">
-                        <svg class="bi pe-none me-2" width="16" height="16"></svg>
+                        <i class="bi bi-house-door pe-none me-2"></i>
                         Home
                     </a>
                 </li>
 
+                <li class="nav-item @(User.IsInRole("Administrador") ? "custom-hover" : "")">
+                    @if (User.IsInRole("Administrador"))
+                    {
+                        <a href="@Url.Action("Fabricantes", "Fabricante")"
+                           class="nav-link text-white @(IsActive("Fabricantes", "DashBoard"))">
+                            <i class="bi bi-building pe-none me-2"></i>
+                            Fabricantes
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="#"
+                           class="nav-link text-muted disabled"
+                           title="Acesso restrito"
+                           style="pointer-events: none;">
+                            <i class="bi bi-building pe-none me-2"></i>
+                            Fabricantes
+                        </a>
+                    }
+                </li>
+
+
+
                 <li class="nav-item custom-hover">
-                    <a href="@Url.Action("Fabricantes", "Fabricante")" class="nav-link text-white @(IsActive("Fabricantes", "DashBoard"))">
-                        <svg class="bi pe-none me-2" width="16" height="16"></svg>
-                        Fabricantes
-                    </a>
+                    @if (User.IsInRole("Gerente"))
+                    {
+                        <a href="@Url.Action("Veiculos", "Veiculo")"
+                           class="nav-link text-white @(IsActive("Veiculos", "Veiculos"))">
+                            <i class="bi bi-truck pe-none me-2"></i>
+                            Veiculos
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="#"
+                           class="nav-link text-muted disabled"
+                           title="Acesso restrito"
+                           style="pointer-events: none;">
+                            <i class="bi bi-truck pe-none me-2"></i>
+                            Veiculos
+                        </a>
+                    }
                 </li>
 
                 <li class="nav-item custom-hover">
-                    <a href="@Url.Action("Veiculos", "DashBoard")" class="nav-link text-white @(IsActive("Veiculos", "DashBoard"))">
-                        <svg class="bi pe-none me-2" width="16" height="16"></svg>
-                        Veiculos
-                    </a>
+
+                    @if (User.IsInRole("Administrador"))
+                    {
+                        <a href="@Url.Action("Concessionarias", "Concessionarias")"
+                           class="nav-link text-white @(IsActive("Concessionarias", "Concessionarias"))">
+                            <i class="bi bi-shop-window pe-none me-2"></i>
+                            Concessionarias
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="#"
+                           class="nav-link text-muted disabled"
+                           title="Acesso restrito"
+                           style="pointer-events: none;">
+                            <i class="bi bi-shop-window pe-none me-2"></i>
+                            Concessionarias
+                        </a>
+                    }
                 </li>
 
                 <li class="nav-item custom-hover">
-                    <a href="@Url.Action("Concessionarias", "DashBoard")" class="nav-link text-white @(IsActive("Concessionarias", "DashBoard"))">
-                        <svg class="bi pe-none me-2" width="16" height="16"></svg>
-                        Concessionárias
-                    </a>
-                </li>
-
-                <li class="nav-item custom-hover">
-                    <a href="@Url.Action("Vendas", "DashBoard")" class="nav-link text-white @(IsActive("Vendas", "DashBoard"))">
-                        <svg class="bi pe-none me-2" width="16" height="16"></svg>
-                        Vendas
-                    </a>
+                    @if (User.IsInRole("Vendedor"))
+                    {
+                        <a href="@Url.Action("Vendas", "Vendas")"
+                           class="nav-link text-white @(IsActive("Vendas", "Vendas"))">
+                            <i class="bi bi-cart pe-none me-2"></i>
+                            Vendas
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="#"
+                           class="nav-link text-muted disabled"
+                           title="Acesso restrito"
+                           style="pointer-events: none;">
+                            <i class="bi bi-cart pe-none me-2"></i>
+                            Vendas
+                        </a>
+                    }
                 </li>
             </ul>
 
+
             <div class="dropdown mt-auto">
                 <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-person-circle me-2"></i>
                     <strong>@User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value</strong>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
                     <li><a class="dropdown-item" href="@Url.Action("Logout", "Usuario")">Sair</a></li>
                 </ul>
             </div>
+
         </div>
 
-        <div class="container container-center">
+        <div class="container container-center mt-5" style="height: 100%;">
             @RenderBody()
         </div>
     </main>

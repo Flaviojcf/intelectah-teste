@@ -17,11 +17,13 @@ builder.Services.AddMediatR(typeof(CreateUsuarioCommand));
 
 builder.Services
     .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie((options) =>
+    .AddCookie(options =>
     {
         options.LoginPath = "/Home/Login";
         options.LogoutPath = "/Home/Login";
+        options.AccessDeniedPath = "/Home/Unauthorized";
     });
+
 
 var app = builder.Build();
 
@@ -49,12 +51,19 @@ app.UseStatusCodePages(async context =>
     {
         context.HttpContext.Response.Redirect("/Error404");
     }
+    else if (statusCode == 403)
+    {
+        context.HttpContext.Response.Redirect("/Unauthorized");
+    }
 });
-
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+app.MapControllerRoute(
+    name: "unauthorized",
+    pattern: "Unauthorized",
+    defaults: new { controller = "Home", action = "Unauthorized" });
 
 app.Run();

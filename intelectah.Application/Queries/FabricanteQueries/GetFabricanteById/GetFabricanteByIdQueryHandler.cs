@@ -1,4 +1,5 @@
 ﻿using intelectah.Domain.Entities;
+using intelectah.Domain.Exceptions;
 using intelectah.Domain.Repositories;
 using MediatR;
 
@@ -9,7 +10,14 @@ namespace intelectah.Application.Queries.FabricanteQueries.GetFabricanteById
         private readonly IFabricanteRepository _fabricanteRepository = fabricanteRepository;
         public async Task<Fabricante> Handle(GetFabricanteByIdQuery request, CancellationToken cancellationToken)
         {
-            return await _fabricanteRepository.GetByIdAsync(request.Id);
+            var fabricante = await _fabricanteRepository.GetByIdAsync(request.Id);
+
+            if (fabricante == null)
+            {
+                throw new FabricanteNotFoundException(request.Id);
+            }
+
+            return fabricante;
         }
     }
 }
