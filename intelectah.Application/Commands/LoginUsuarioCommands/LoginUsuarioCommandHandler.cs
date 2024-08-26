@@ -22,7 +22,7 @@ namespace intelectah.Application.Commands.LoginUsuarioCommands
 
             var token = _authService.GenerateJwtToken(user.Email, user.NivelAcesso);
 
-            var loginUsuarioOutputModel = new LoginUsuarioOutputModel(user.Email, token);
+            var loginUsuarioOutputModel = new LoginUsuarioOutputModel(user.Email, token, user.NivelAcesso);
 
             return loginUsuarioOutputModel;
         }

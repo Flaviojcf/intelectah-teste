@@ -10,37 +10,36 @@
 
 <div>
     <main class="form-signin w-100 m-auto" style="max-width: 500px;" id="register">
-        <form id="registerForm" action="/Usuario/NewAccount" method="post">
 
-             <div class="text-center mb-2">
+        @using (Html.BeginForm("CriarConta", "Usuario", FormMethod.Post, new { id = "registerForm" }))
+        {
+            <div class="text-center mb-2">
                 <h1 class="h3 fw-bold">Cadastro</h1>
                 <p class="text-white">Preencha todos os campos abaixo para criar sua conta</p>
             </div>
 
             <div class="form-floating mb-3">
-                <select asp-for="NivelAcesso" asp-items="Model.NivelAcessos" class="form-control" id="floatingNivelAcesso">
-                    <option value="">Selecione o Nível de Acesso</option>
-                </select>
-                <label for="floatingNivelAcesso">Nível de Acesso</label>
-                <span asp-validation-for="NivelAcesso" class="text-danger"></span>
+                @Html.DropDownListFor(model => model.NivelAcesso, Model.NivelAcessos, "Selecione o Nível de Acesso", new { @class = "form-control", id = "floatingNivelAcesso" })
+                @Html.LabelFor(model => model.NivelAcesso, "Nível de Acesso", new { @for = "floatingNivelAcesso" })
+                @Html.ValidationMessageFor(model => model.NivelAcesso, "", new { @class = "text-danger" })
             </div>
 
             <div class="form-floating mb-3">
-                <input asp-for="Nome" class="form-control" id="floatingNome" placeholder="Nome">
-                <label for="floatingNome">Nome</label>
-                <span asp-validation-for="Nome" class="text-danger"></span>
+                @Html.TextBoxFor(model => model.Nome, new { @class = "form-control", id = "floatingNome", placeholder = "Nome" })
+                @Html.LabelFor(model => model.Nome, "Nome", new { @for = "floatingNome" })
+                @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
             </div>
 
             <div class="form-floating mb-3">
-                <input asp-for="Email" class="form-control" id="floatingEmail" placeholder="nome@exemplo.com">
-                <label for="floatingEmail">Email</label>
-                <span asp-validation-for="Email" class="text-danger"></span>
+                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", id = "floatingEmail", placeholder = "nome@exemplo.com" })
+                @Html.LabelFor(model => model.Email, "Email", new { @for = "floatingEmail" })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
             </div>
 
             <div class="form-floating mb-3">
-                <input asp-for="Senha" class="form-control" id="floatingPassword" type="password" placeholder="Senha">
-                <label for="floatingPassword">Senha</label>
-                <span asp-validation-for="Senha" class="text-danger"></span>
+                @Html.PasswordFor(model => model.Senha, new { @class = "form-control", id = "floatingPassword", placeholder = "Senha" })
+                @Html.LabelFor(model => model.Senha, "Senha", new { @for = "floatingPassword" })
+                @Html.ValidationMessageFor(model => model.Senha, "", new { @class = "text-danger" })
             </div>
 
             <button id="submitButton" class="btn btn-primary w-100 py-2" type="button" onclick="FctCadastrar(event)">
@@ -49,10 +48,11 @@
             </button>
 
             <a href="/Home/Login" class="btn btn-secondary w-100 mt-2">Fazer Login</a>
+        }
 
-        </form>
     </main>
 </div>
+
 
 
 <script src="~/js/Usuario/usuario.js"></script>

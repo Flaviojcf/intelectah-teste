@@ -1,9 +1,12 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+@using Microsoft.AspNetCore.Mvc.Rendering
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - intelectah.MVC</title>
+    <title>@ViewData["Title"] - intelectah</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/index.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/layoutApp.css" asp-append-version="true" />
@@ -22,39 +25,41 @@
         </nav>
     </header>
 
-    <main role="main" class="flex-grow-1 d-flex align-items-center justify-content-center" >
+    <main role="main" class="flex-grow-1 d-flex align-items-center justify-content-center">
         <div class="d-flex flex-column p-3 border-end border-light" style="width:280px; height: 100%;">
 
             <ul class="nav nav-pills d-flex flex-column fs-6 gap-4">
                 <li class="nav-item custom-hover">
-                    <a href="#" class="nav-link active" aria-current="page">
-                        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home" /></svg>
+                    <a href="@Url.Action("Index", "DashBoard")" class="nav-link text-white @(IsActive("Index", "DashBoard"))">
+                        <svg class="bi pe-none me-2" width="16" height="16"></svg>
                         Home
                     </a>
                 </li>
 
                 <li class="nav-item custom-hover">
-                    <a href="#" class="nav-link text-white ">
-                        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#Register" /></svg>
+                    <a href="@Url.Action("Fabricantes", "DashBoard")" class="nav-link text-white @(IsActive("Fabricantes", "DashBoard"))">
+                        <svg class="bi pe-none me-2" width="16" height="16"></svg>
                         Fabricantes
                     </a>
                 </li>
 
                 <li class="nav-item custom-hover">
-                    <a href="#" class="nav-link text-white">
-                        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table" /></svg>
+                    <a href="@Url.Action("Veiculos", "DashBoard")" class="nav-link text-white @(IsActive("Veiculos", "DashBoard"))">
+                        <svg class="bi pe-none me-2" width="16" height="16"></svg>
                         Veiculos
                     </a>
                 </li>
+
                 <li class="nav-item custom-hover">
-                    <a href="#" class="nav-link text-white">
-                        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid" /></svg>
-                       Concessionárias
+                    <a href="@Url.Action("Concessionarias", "DashBoard")" class="nav-link text-white @(IsActive("Concessionarias", "DashBoard"))">
+                        <svg class="bi pe-none me-2" width="16" height="16"></svg>
+                        Concessionárias
                     </a>
                 </li>
+
                 <li class="nav-item custom-hover">
-                    <a href="#" class="nav-link text-white">
-                        <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle" /></svg>
+                    <a href="@Url.Action("Vendas", "DashBoard")" class="nav-link text-white @(IsActive("Vendas", "DashBoard"))">
+                        <svg class="bi pe-none me-2" width="16" height="16"></svg>
                         Vendas
                     </a>
                 </li>
@@ -62,13 +67,10 @@
 
             <div class="dropdown mt-auto">
                 <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-                    <strong>mdo</strong>
+                    <strong>@User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value</strong>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-                    <li><a class="dropdown-item" href="#">Editar Perfil</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Sair</a></li>
+                    <li><a class="dropdown-item" href="@Url.Action("Logout", "Usuario")">Sair</a></li>
                 </ul>
             </div>
         </div>
@@ -76,10 +78,9 @@
         <div class="container container-center">
             @RenderBody()
         </div>
-
     </main>
 
-    <footer id="contato" class="bg-light text-center ">
+    <footer id="contato" class="bg-light text-center">
         <div class="container container-center p-4">
             © 2024 Flaviojcf - Todos os Direitos Reservados
         </div>
@@ -90,5 +91,15 @@
     @await RenderSectionAsync("Scripts", required: false)
 
 </body>
-
 </html>
+
+@functions {
+    private string IsActive(string actionName, string controllerName)
+    {
+        var routeData = ViewContext.RouteData.Values;
+        string currentAction = routeData["action"] as string;
+        string currentController = routeData["controller"] as string;
+
+        return currentAction == actionName && currentController == controllerName ? "active" : "";
+    }
+}

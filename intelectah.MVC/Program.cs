@@ -3,6 +3,7 @@ using intelectah.Application.Commands.UsuarioCommands;
 using intelectah.Infrastructure;
 using intelectah.MVC;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,10 +14,17 @@ builder.Services.AddMVC();
 builder.Services.AddApplication();
 builder.Services.AddMediatR(typeof(CreateUsuarioCommand));
 
+
+builder.Services
+    .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie((options) =>
+    {
+        options.LoginPath = "/Home/Login";
+        options.LogoutPath = "/Home/Login";
+    });
+
 var app = builder.Build();
 
-
-//app.UseMiddleware<TokenMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -24,16 +32,13 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
-else
-{
-    app.UseDeveloperExceptionPage();
-}
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 

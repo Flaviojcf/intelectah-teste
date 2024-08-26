@@ -1,0 +1,66 @@
+﻿@model intelectah.MVC.Models.FabricantesViewModel
+
+
+@{
+    Layout = "~/Views/Shared/_LayoutApp.cshtml";
+}
+
+@{
+    ViewData["Title"] = "Cadastro";
+}
+
+
+<div class="container mt-5">
+
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4 class="mb-0">Adicionar Novo Fabricante</h4>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm("Cadastrar", "DashBoard", FormMethod.Post, new { id = "registerFabricanteForm" }))
+                    {
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Nome, "Nome do Fabricante", new { @class = "form-label" })
+                            @Html.TextBoxFor(model => model.Nome, new { @class = "form-control", placeholder = "Insira o nome do fabricante" })
+                            @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.PaisOrigem, "País de Origem", new { @class = "form-label" })
+                            @Html.TextBoxFor(model => model.PaisOrigem, new { @class = "form-control", placeholder = "Insira o país de origem" })
+                            @Html.ValidationMessageFor(model => model.PaisOrigem, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.AnoFundacao, "Ano de Fundação", new { @class = "form-label" })
+                            @Html.TextBoxFor(model => model.AnoFundacao, new { @class = "form-control", placeholder = "Insira o ano de fundação", type = "number" })
+                            @Html.ValidationMessageFor(model => model.AnoFundacao, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Website, "URL do Website", new { @class = "form-label" })
+                            @Html.TextBoxFor(model => model.Website, new { @class = "form-control", placeholder = "Insira o URL do website" })
+                            @Html.ValidationMessageFor(model => model.Website, "", new { @class = "text-danger" })
+                        </div>
+
+                        <button id="submitButton" class="btn btn-primary w-100 py-2 mt-3" type="button" onclick="FctCadastrarFabricante(event)">
+                            Adicionar Fabricante
+                            <span id="spinner" class="spinner-border spinner-border-sm ms-2 d-none" role="status" aria-hidden="true"></span>
+                        </button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+</div>
+
+<script src="~/js/Dashboard/dashboard.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap5.min.css" />
+

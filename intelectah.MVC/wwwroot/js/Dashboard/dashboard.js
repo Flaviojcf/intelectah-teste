@@ -1,14 +1,18 @@
-﻿function FctLogin(event) {
+﻿$(function () {
+    $('#fabricantesTable').DataTable();
+});
+
+function FctCadastrarFabricante(event) {
     event.preventDefault();
 
-    var form = $("#loginForm");
+    var form = $("#registerFabricanteForm");
 
     if (!form.valid()) {
         return;
     }
 
-    var submitButton = document.getElementById('loginButton');
-    var spinner = document.getElementById('spinnerLogin');
+    var submitButton = document.getElementById('submitButton');
+    var spinner = document.getElementById('spinner');
 
     submitButton.disabled = true;
     spinner.classList.remove('d-none');
@@ -19,7 +23,8 @@
         data: form.serialize(),
         success: function (response) {
             if (response.success) {
-                window.location.href = response.redirectUrl;
+                showToast(response.message, 'success');
+                form[0].reset();
             } else {
                 showToast(response.message, 'danger');
             }

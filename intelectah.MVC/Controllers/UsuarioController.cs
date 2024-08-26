@@ -6,6 +6,9 @@ using intelectah.MVC.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 
 namespace intelectah.MVC.Controllers
 {
@@ -21,23 +24,21 @@ namespace intelectah.MVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
+            if (User.Identity.IsAuthenticated)
+                return Json(new { success = true, redirectUrl = Url.Action("Index", "Dashboard") });
 
             try
             {
-                var loginUsuarioCommand = new LoginUsuarioCommand(model.Email, model.Senha);
+                var loginUsuarioModel = await _mediator.Send(new LoginUsuarioCommand(model.Email, model.Senha));
 
-                var loginUsuarioModel = await _mediator.Send(loginUsuarioCommand);
-
-                var cookieOptions = new CookieOptions
+                if (loginUsuarioModel == null)
                 {
-                    Expires = DateTimeOffset.Now.AddHours(1),
-                    HttpOnly = true,
-                    Secure = Request.IsHttps
-                };
+                    return Json(new { success = false, message = "Email ou senha incorretos." });
+                }
 
-                Response.Cookies.Append("AuthToken", loginUsuarioModel.Token, cookieOptions);
+                await SignInUserAsync(loginUsuarioModel.Token, loginUsuarioModel.Email, loginUsuarioModel.NivelAcesso);
 
-                return RedirectToAction("Index", "DashBoard");
+                return Json(new { success = true, redirectUrl = Url.Action("Index", "Dashboard") });
             }
             catch (UsuarioAlreadyExistException ex)
             {
@@ -49,17 +50,22 @@ namespace intelectah.MVC.Controllers
             }
         }
 
-        public IActionResult Logout()
+
+        [HttpGet]
+        public async Task<IActionResult> Logout()
         {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
-            Response.Cookies.Delete("AuthToken");
-
-            return RedirectToAction("~/Views/Home/Login.cshtml");
+            return RedirectToAction("Index", "Home");
         }
+
 
         [HttpGet]
         public IActionResult Cadastrar()
         {
+            if (User.Identity.IsAuthenticated)
+                return RedirectToAction("Index", "Dashboard");
+
             var model = new RegisterUsuarioViewModel
             {
                 NivelAcessos = Enum.GetValues(typeof(NivelAcesso)).Cast<NivelAcesso>().Select(n => new SelectListItem
@@ -74,7 +80,7 @@ namespace intelectah.MVC.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> NewAccount(RegisterUsuarioViewModel model)
+        public async Task<IActionResult> CriarConta(RegisterUsuarioViewModel model)
         {
             ModelState.Remove("NivelAcessos");
 
@@ -90,7 +96,7 @@ namespace intelectah.MVC.Controllers
             {
                 var createUsuarioCommand = new CreateUsuarioCommand(model.Nome, model.Senha, model.Email, model.NivelAcesso);
 
-                var id = await _mediator.Send(createUsuarioCommand);
+                await _mediator.Send(createUsuarioCommand);
 
                 return Json(new { success = true, message = "Cadastro realizado com sucesso!" });
             }
@@ -104,6 +110,19 @@ namespace intelectah.MVC.Controllers
             }
         }
 
+        private async Task SignInUserAsync(string token, string email, NivelAcesso nivelAcesso)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, token),
+                new Claim(ClaimTypes.Email, email),
+                new Claim(ClaimTypes.Role, nivelAcesso.ToString()) 
+            };
 
+            var authScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+            var principal = new ClaimsPrincipal(new ClaimsIdentity(claims, authScheme));
+
+            await HttpContext.SignInAsync(authScheme, principal);
+        }
     }
 }

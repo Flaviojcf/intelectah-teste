@@ -1,4 +1,4 @@
-﻿using intelectah.Application.Services;
+﻿using intelectah.Application.Services.Interfaces;
 using intelectah.Domain.Entities;
 using intelectah.Domain.Repositories;
 using intelectah.Infrastructure.Auth;
