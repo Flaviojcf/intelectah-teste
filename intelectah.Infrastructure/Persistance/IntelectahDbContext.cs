@@ -9,6 +9,7 @@ namespace intelectah.Infrastructure.Persistance
         public DbSet<Usuario> Usuario { get; set; }
         public DbSet<Fabricante> Fabricante { get; set; }
         public DbSet<Veiculo> Veiculo { get; set; }
+        public DbSet<Concessionaria> Concessionaria { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

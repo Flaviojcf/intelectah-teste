@@ -15,7 +15,21 @@ namespace intelectah.Application.Services
         {
             await this.ValidateFabricanteNome(command.Nome);
 
-            this.AddTrimFields(command);
+            AddTrimFields(command);
+        }
+
+        public async Task ValidateUpdateFabricante(UpdateFabricanteCommand command)
+        {
+            var query = new GetFabricanteByNameQuery(command.Nome);
+
+            var fabricante = await _mediator.Send(query);
+
+            if (fabricante != null && fabricante.Id != command.Id)
+            {
+                throw new FabricanteAlreadyExistException(fabricante.Nome);
+            }
+
+            UpdateTrimFields(command);
         }
 
         private async Task ValidateFabricanteNome(string nome)
@@ -31,23 +45,18 @@ namespace intelectah.Application.Services
 
         }
 
-        private void AddTrimFields(CreateFabricanteCommand command)
+        private static void AddTrimFields(CreateFabricanteCommand command)
         {
             command.Nome = command.Nome?.Trim();
             command.PaisOrigem = command.PaisOrigem?.Trim();
             command.Website = command.Website?.Trim();
         }
 
-        public async Task ValidateUpdateFabricante(UpdateFabricanteCommand command)
+        private static void UpdateTrimFields(UpdateFabricanteCommand command)
         {
-            var query = new GetFabricanteByNameQuery(command.Nome);
-
-            var fabricante = await _mediator.Send(query);
-
-            if (fabricante != null && fabricante.Id != command.Id)
-            {
-                throw new FabricanteAlreadyExistException(fabricante.Nome);
-            }
+            command.Nome = command.Nome?.Trim();
+            command.PaisOrigem = command.PaisOrigem?.Trim();
+            command.Website = command.Website?.Trim();
         }
     }
 }

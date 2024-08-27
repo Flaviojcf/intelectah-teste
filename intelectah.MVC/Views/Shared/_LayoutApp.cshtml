@@ -42,7 +42,7 @@
                     @if (User.IsInRole("Administrador"))
                     {
                         <a href="@Url.Action("Fabricantes", "Fabricante")"
-                           class="nav-link text-white @(IsActive("Fabricantes", "DashBoard"))">
+                           class="nav-link text-white @(IsActive("Fabricantes", "Fabricante"))">
                             <i class="bi bi-building pe-none me-2"></i>
                             Fabricantes
                         </a>
@@ -65,7 +65,7 @@
                     @if (User.IsInRole("Gerente"))
                     {
                         <a href="@Url.Action("Veiculos", "Veiculo")"
-                           class="nav-link text-white @(IsActive("Veiculos", "Veiculos"))">
+                           class="nav-link text-white @(IsActive("Veiculos", "Veiculo"))">
                             <i class="bi bi-truck pe-none me-2"></i>
                             Veiculos
                         </a>
@@ -86,8 +86,8 @@
 
                     @if (User.IsInRole("Administrador"))
                     {
-                        <a href="@Url.Action("Concessionarias", "Concessionarias")"
-                           class="nav-link text-white @(IsActive("Concessionarias", "Concessionarias"))">
+                        <a href="@Url.Action("Concessionarias", "Concessionaria")"
+                           class="nav-link text-white @(IsActive("Concessionarias", "Concessionaria"))">
                             <i class="bi bi-shop-window pe-none me-2"></i>
                             Concessionarias
                         </a>

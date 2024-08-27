@@ -1,0 +1,71 @@
+﻿@model intelectah.MVC.Models.ConcessionariaViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutApp.cshtml";
+}
+
+@{
+    ViewData["Title"] = "Concessionárias";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4 class="mb-0">Lista de Concessionárias</h4>
+                </div>
+                <div class="card-body">
+
+                    <div class="mb-3">
+                        <a href="/Concessionaria/Cadastrar" class="btn btn-secondary w-100 mt-2">Adicionar Nova Concessionária</a>
+                    </div>
+
+                    <table id="concessionariasTable" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Endereço</th>
+                                <th>Cidade</th>
+                                <th>Estado</th>
+                                <th>CEP</th>
+                                <th>Telefone</th>
+                                <th>Email</th>
+                                <th>Capacidade Máxima de Veículos</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.Concessionarias != null && Model.Concessionarias.Count > 0)
+                            {
+                                foreach (var concessionaria in Model.Concessionarias)
+                                {
+                                    <tr>
+                                        <td>@concessionaria.Nome</td>
+                                        <td>@concessionaria.Endereco</td>
+                                        <td>@concessionaria.Cidade</td>
+                                        <td>@concessionaria.Estado</td>
+                                        <td>@concessionaria.CEP</td>
+                                        <td>@concessionaria.Telefone</td>
+                                        <td>@concessionaria.Email</td>
+                                        <td>@concessionaria.CapacidadeMaximaVeiculos</td>
+                                        <td class="text-center">
+                                            <a onclick="FctEditarConcessionaria(@concessionaria.Id)" class="btn btn-warning btn-sm"><i class="bi bi-pencil"></i> Editar</a>
+                                            <a onclick="FctDeletarConcessionaria(@concessionaria.Id)" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i> Deletar</a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap5.min.css" />
+
+<script src="~/js/Concessionaria/concessionaria.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
