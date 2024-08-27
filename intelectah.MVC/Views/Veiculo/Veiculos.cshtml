@@ -1,0 +1,67 @@
+﻿@model intelectah.MVC.Models.VeiculoViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutApp.cshtml";
+}
+
+@{
+    ViewData["Title"] = "Veiculos";
+}
+
+<div class="container">
+    <div class="row ">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4 class="mb-0">Lista de Veiculos</h4>
+                </div>
+                <div class="card-body">
+
+                    <div class="mb-3">
+                        <a href="/Veiculo/Cadastrar" class="btn btn-secondary w-100 mt-2">Adicionar Novo Veiculo</a>
+                    </div>
+
+                    <table id="veiculosTable" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Modelo</th>
+                                <th>Ano de Fabricação</th>
+                                <th>Preço</th>
+                                <th>Fabricante</th>
+                                <th>Tipo de Veículo</th>
+                                <th>Descrição</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.Veiculos != null && Model.Veiculos.Count > 0)
+                            {
+                                foreach (var veiculo in Model.Veiculos)
+                                {
+                                    <tr>
+                                        <td>@veiculo.Modelo</td>
+                                        <td>@veiculo.AnoFabricacao</td>
+                                        <td>@veiculo.Preco.ToString("C", new System.Globalization.CultureInfo("pt-BR"))</td>
+                                        <td>@veiculo.Fabricante.Nome</td>
+                                        <td>@veiculo.TipoVeiculo</td>
+                                        <td>@veiculo.Descricao</td>
+                                        <td class="text-center">
+                                            <a onclick="FctEditarVeiculo(@veiculo.Id)" class="btn btn-warning btn-sm"><i class="bi bi-pencil"></i> Editar</a>
+                                            <a onclick="FctDeletarVeiculo(@veiculo.Id)" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i> Deletar</a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap5.min.css" />
+
+<script src="~/js/Veiculo/veiculo.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>

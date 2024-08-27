@@ -27,7 +27,7 @@
             <div class="card-body">
                 @using (Html.BeginForm("EditarFabricante", "Fabricante", FormMethod.Post, new { id = "editFabricanteForm" }))
                 {
-                    @Html.HiddenFor(model=>Model.Id);
+                    @Html.HiddenFor(model=>Model.Id)
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.Nome, "Nome do Fabricante", new { @class = "form-label" })

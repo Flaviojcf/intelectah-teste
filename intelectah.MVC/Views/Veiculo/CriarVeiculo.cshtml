@@ -1,0 +1,79 @@
+﻿@using intelectah.Domain.TypesEnum
+@model intelectah.MVC.Models.VeiculoViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutApp.cshtml";
+}
+
+@{
+    ViewData["Title"] = "Cadastrar Veiculo";
+}
+
+
+<div class="row">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a class="text-white"  href="@Url.Action("Index", "Dashboard", new { area = "" }, null)"><i class="bi bi-house-door"></i> Dashboard</a></li>
+            <li class="breadcrumb-item"><a class="text-white" href="@Url.Action("Veiculos", "Veiculo", new { area = "" }, null)"><i class="bi bi-building"></i> Veiculos</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><i class="bi bi-plus-square"></i> Cadastrar</li>
+        </ol>
+    </nav>
+
+    <div class="col-md-8 offset-md-2 mt-5">
+        <div class="card">
+            <div class="card-header bg-primary text-white text-center">
+                <h4 class="mb-0">Adicionar Novo Veiculo</h4>
+            </div>
+            <div class="card-body">
+                @using (Html.BeginForm("CadastrarVeiculo", "Veiculo", FormMethod.Post, new { id = "registerVeiculoForm" }))
+                {
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Modelo, "Nome do Modelo", new { @class = "form-label" })
+                        @Html.TextBoxFor(model => model.Modelo, new { @class = "form-control", placeholder = "Insira o nome do modelo" })
+                        @Html.ValidationMessageFor(model => model.Modelo, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.AnoFabricacao, "Ano de Fabricação", new { @class = "form-label" })
+                        @Html.TextBoxFor(model => model.AnoFabricacao, new { @class = "form-control", placeholder = "Insira o ano de fabricação", type = "number" })
+                        @Html.ValidationMessageFor(model => model.AnoFabricacao, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Preco, "Preço", new { @class = "form-label" })
+                        @Html.TextBoxFor(model => model.Preco, new { @class = "form-control", placeholder = "Insira o preço", type = "number" })
+                        @Html.ValidationMessageFor(model => model.Preco, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.TipoVeiculo, "Tipo de Veículo", new { @class = "form-label" })
+                        @Html.DropDownListFor(model => model.TipoVeiculo, new SelectList(Enum.GetValues(typeof(TipoVeiculo))), new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.TipoVeiculo, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.FabricanteId, "Fabricante", new { @class = "form-label" })
+                        @Html.DropDownListFor(model => model.FabricanteId, new SelectList(Model.Fabricantes, "Id", "Nome"), new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.FabricanteId, "", new { @class = "text-danger" })
+                    </div>
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Descricao, "Descrição", new { @class = "form-label" })
+                        @Html.TextAreaFor(model => model.Descricao, new { @class = "form-control", rows = 3, placeholder = "Insira uma descrição (opcional)" })
+                        @Html.ValidationMessageFor(model => model.Descricao, "", new { @class = "text-danger" })
+                    </div>
+
+
+                    <button id="submitButton" class="btn btn-primary w-100 py-2 mt-3" type="button" onclick="FctCadastrarVeiculo(event)">
+                        Adicionar Veiculo
+                        <span id="spinner" class="spinner-border spinner-border-sm ms-2 d-none" role="status" aria-hidden="true"></span>
+                    </button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/Veiculo/cadastrarVeiculo.js"></script>
