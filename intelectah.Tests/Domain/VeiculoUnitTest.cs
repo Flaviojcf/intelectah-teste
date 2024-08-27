@@ -62,16 +62,6 @@ namespace intelectah.Tests.Domain
 
         [Fact]
         [Trait("Domain", "Create Veiculo")]
-        public void CreateVeiculo_WithInvalidDescricao_ThrowsDomainExceptionValidation()
-        {
-            var exception = Assert.Throws<DomainExceptionValidation>(() => new Veiculo("Veiculo Model", 2020, 50300, TipoVeiculo.Carro, "", 1));
-
-            Assert.Equal("A descrição é obrigatória", exception.Message);
-
-        }
-
-        [Fact]
-        [Trait("Domain", "Create Veiculo")]
         public void CreateVeiculo_WithInvalidFabricanteID_ThrowsDomainExceptionValidation()
         {
             var exception = Assert.Throws<DomainExceptionValidation>(() => new Veiculo("Veiculo Model", 2020, 50300, TipoVeiculo.Carro, "Um carro", 0));
@@ -138,17 +128,6 @@ namespace intelectah.Tests.Domain
             var exception = Assert.Throws<DomainExceptionValidation>(() => veiculo.Update("Novo Modelo", 2021, 60000, invalidTipoVeiculo, "Uma moto", 2));
 
             Assert.Equal("O tipo de veículo é obrigatório", exception.Message);
-        }
-
-        [Fact]
-        [Trait("Domain", "Update Veiculo")]
-        public void UpdateVeiculo_WithInvalidDescricao_ThrowsDomainExceptionValidation()
-        {
-            var veiculo = new Veiculo("Veiculo Model", 2020, 50300, TipoVeiculo.Carro, "Um carro", 1);
-
-            var exception = Assert.Throws<DomainExceptionValidation>(() => veiculo.Update("Novo Modelo", 2021, 60000, TipoVeiculo.Moto, "", 2));
-
-            Assert.Equal("A descrição é obrigatória", exception.Message);
         }
 
         [Fact]

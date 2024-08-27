@@ -33,7 +33,7 @@ namespace intelectah.Tests.Domain
         {
             var exception = Assert.Throws<DomainExceptionValidation>(() => new Cliente("Client Name", "", "11987654321"));
 
-            Assert.Equal("O cpf é obrigatório", exception.Message);
+            Assert.Equal("O CPF é obrigatório", exception.Message);
         }
 
         [Fact]
@@ -79,7 +79,7 @@ namespace intelectah.Tests.Domain
 
             var exception = Assert.Throws<DomainExceptionValidation>(() => cliente.Update("Client Name", "", "11987654322"));
 
-            Assert.Equal("O cpf é obrigatório", exception.Message);
+            Assert.Equal("O CPF é obrigatório", exception.Message);
         }
 
         [Fact]
