@@ -25,6 +25,7 @@ namespace intelectah.Infrastructure
             services.AddScoped<IFabricanteRepository, FabricanteRepository>();
             services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<IConcessionariaRepository, ConcessionariaRepository>();
+            services.AddScoped<IVendaRepository, VendaRepository>();
             services.AddScoped<IAuthService, AuthService>();
 
             return services;

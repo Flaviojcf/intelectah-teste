@@ -1,0 +1,59 @@
+﻿@model intelectah.MVC.Models.UpdateClienteViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutApp.cshtml";
+}
+
+@{
+    ViewData["Title"] = "Editar Cliente";
+}
+
+<div class="row">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a class="text-white" href="@Url.Action("Index", "Dashboard", new { area = "" }, null)"><i class="bi bi-house-door"></i> Dashboard</a></li>
+            <li class="breadcrumb-item"><a class="text-white" href="@Url.Action("Clientes", "Cliente", new { area = "" }, null)"><i class="bi bi-people"></i> Clientes</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><i class="bi bi-plus-square"></i> Editar</li>
+        </ol>
+    </nav>
+
+    <div class="col-md-8 offset-md-2 mt-5">
+        <div class="card">
+            <div class="card-header bg-primary text-white text-center">
+                <h4 class="mb-0">Adicionar Novo Cliente</h4>
+            </div>
+            <div class="card-body">
+                @using (Html.BeginForm("EditarCliente", "Cliente", FormMethod.Post, new { id = "editClienteForm" }))
+                {
+                    @Html.HiddenFor(model => model.Id)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Nome, "Nome Completo", new { @class = "form-label" })
+                        @Html.TextBoxFor(model => model.Nome, new { @class = "form-control", placeholder = "Insira o nome completo do cliente" })
+                        @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CPF, "CPF", new { @class = "form-label" })
+                        @Html.TextBoxFor(model => model.CPF, new { @class = "form-control", placeholder = "Insira o CPF do cliente", type = "text" })
+                        @Html.ValidationMessageFor(model => model.CPF, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Telefone, "Telefone", new { @class = "form-label" })
+                        @Html.TextBoxFor(model => model.Telefone, new { @class = "form-control", placeholder = "Insira o telefone de contato", type = "text" })
+                        @Html.ValidationMessageFor(model => model.Telefone, "", new { @class = "text-danger" })
+                    </div>
+
+                    <button id="submitButton" class="btn btn-primary w-100 py-2 mt-3" type="button" onclick="FctEditarCliente(event)">
+                        Salvar
+                        <span id="spinner" class="spinner-border spinner-border-sm ms-2 d-none" role="status" aria-hidden="true"></span>
+                    </button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/Cliente/editarCliente.js"></script>

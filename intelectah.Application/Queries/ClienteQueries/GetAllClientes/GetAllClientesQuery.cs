@@ -3,7 +3,7 @@ using MediatR;
 
 namespace intelectah.Application.Queries.ClienteQueries.GetAllClientes
 {
-    public class GetAllClienteQuery : IRequest<List<Cliente>>
+    public class GetAllClientesQuery : IRequest<List<Cliente>>
     {
     }
 }

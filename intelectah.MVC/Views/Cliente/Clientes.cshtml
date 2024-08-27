@@ -1,0 +1,78 @@
+﻿@model intelectah.MVC.Models.ClienteViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutApp.cshtml";
+}
+
+@{
+    ViewData["Title"] = "Clientes";
+}
+
+@{
+    var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+
+    var isVendasActive = currentController == "Venda" && currentAction == "Vendas";
+    var isClientesActive = currentController == "Cliente" && currentAction == "Clientes";
+}
+
+<div class="d-flex justify-content-around mb-4">
+    <a class="btn btn-outline-primary d-flex align-items-center @(isVendasActive ? "active" : "")" href="@Url.Action("Vendas", "Venda")">
+        <i class="bi bi-cart-check me-2"></i> Vendas
+    </a>
+    <a class="btn btn-outline-secondary d-flex align-items-center @(isClientesActive ? "active" : "")" href="@Url.Action("Clientes", "Cliente")">
+        <i class="bi bi-people me-2"></i> Clientes
+    </a>
+</div>
+
+<div class="container">
+    <div class="row ">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4 class="mb-0">Lista de Clientes</h4>
+                </div>
+                <div class="card-body">
+
+                    <div class="mb-3">
+                        <a href="/Cliente/Cadastrar" class="btn btn-secondary w-100 mt-2">Adicionar Novo Cliente</a>
+                    </div>
+
+                    <table id="clientesTable" class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>CPF</th>
+                                <th>Telefone</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.Clientes != null && Model.Clientes.Count > 0)
+                            {
+                                foreach (var cliente in Model.Clientes)
+                                {
+                                    <tr>
+                                        <td>@cliente.Nome</td>
+                                        <td>@cliente.CPF</td>
+                                        <td>@cliente.Telefone</td>
+                                        <td class="text-center">
+                                            <a onclick="FctEditarCliente(@cliente.Id)" class="btn btn-warning btn-sm"><i class="bi bi-pencil"></i> Editar</a>
+                                            <a onclick="FctDeletarCliente(@cliente.Id)" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i> Deletar</a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap5.min.css" />
+
+<script src="~/js/Cliente/cliente.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap5.min.js"></script>
