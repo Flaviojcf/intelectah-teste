@@ -39,20 +39,33 @@
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.ProtocoloVenda, "Protocolo de Venda", new { @class = "form-label" })
-                        @Html.TextBoxFor(model => model.ProtocoloVenda, new { @class = "form-control", placeholder = "Insira o protocolo da venda" })
-                        @Html.ValidationMessageFor(model => model.ProtocoloVenda, "", new { @class = "text-danger" })
+                        @Html.LabelFor(model => model.FabricanteID, "Fabricante", new { @class = "form-label" })
+                        @Html.DropDownListFor(model => model.FabricanteID, new SelectList(Model.Fabricantes, "Id", "Nome"), "Selecione um fabricante", new { @class = "form-control", id = "fabricanteDropdown" })
+                        @Html.ValidationMessageFor(model => model.FabricanteID, "", new { @class = "text-danger" })
                     </div>
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.VeiculoID, "Veículo", new { @class = "form-label" })
-                        @Html.DropDownListFor(model => model.VeiculoID, new SelectList(Model.Veiculos, "Id", "Modelo"), new { @class = "form-control" })
+                        @Html.DropDownListFor(model => model.VeiculoID, Enumerable.Empty<SelectListItem>(), "Selecione um fabricante primeiro", new { @class = "form-control", id = "veiculoDropdown" })
                         @Html.ValidationMessageFor(model => model.VeiculoID, "", new { @class = "text-danger" })
                     </div>
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.ConcessionariaID, "Concessionária", new { @class = "form-label" })
-                        @Html.DropDownListFor(model => model.ConcessionariaID, new SelectList(Model.Concessionarias, "Id", "Nome"), new { @class = "form-control" })
+                        <div class="dropdown">
+                            <input type="text" class="form-control" id="concessionariaInput" placeholder="Digite para filtrar..." onkeyup="FctFiltrarConcessionarias()" data-bs-toggle="dropdown" aria-expanded="false" />
+                            <ul class="dropdown-menu w-100" id="concessionariaDropdown">
+                                @foreach (var concessionaria in Model.Concessionarias)
+                                {
+                                    <li>
+                                        <a class="dropdown-item" href="#" data-value="@concessionaria.Id" onclick="FctSelecionarConcessionaria('@concessionaria.Id', '@concessionaria.Nome')">
+                                            @concessionaria.Nome
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                        @Html.HiddenFor(model => model.ConcessionariaID)
                         @Html.ValidationMessageFor(model => model.ConcessionariaID, "", new { @class = "text-danger" })
                     </div>
 

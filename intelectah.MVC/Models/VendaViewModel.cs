@@ -6,10 +6,13 @@ namespace intelectah.MVC.Models
     {
         public DateTime DataVenda { get; set; }
         public decimal PrecoVenda { get; set; }
-        public string ProtocoloVenda { get; set; }
+        public string? ProtocoloVenda { get; set; }
         public int VeiculoID { get; set; }
         public int ConcessionariaID { get; set; }
         public int ClienteID { get; set; }
+
+
+        public int FabricanteID { get; set; }
 
         public IList<Venda> Vendas { get; set; }
         public IList<Concessionaria> Concessionarias { get; set; }
