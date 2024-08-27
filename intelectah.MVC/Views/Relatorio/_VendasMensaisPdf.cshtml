@@ -1,0 +1,21 @@
+﻿@model IEnumerable<dynamic>
+
+<h2>Relatório de Vendas Mensais</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Concessionária</th>
+            <th>Total de Vendas</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Concessionaria</td>
+                <td>@item.TotalVendas</td>
+            </tr>
+        }
+    </tbody>
+</table>
