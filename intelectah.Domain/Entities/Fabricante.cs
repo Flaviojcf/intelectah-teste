@@ -18,7 +18,7 @@ namespace intelectah.Domain.Entities
         public int AnoFundacao { get; private set; }
         public string Website { get; private set; }
 
-        //public ICollection<Veiculo> Veiculos { get; set; }
+        public ICollection<Veiculo> Veiculos { get; set; }
 
         public void Update(string nome, string paisOrigem, int anoFundacao, string website)
         {
