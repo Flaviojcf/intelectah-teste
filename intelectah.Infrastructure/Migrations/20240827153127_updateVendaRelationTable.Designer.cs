@@ -12,8 +12,8 @@ using intelectah.Infrastructure.Persistance;
 namespace intelectah.Infrastructure.Migrations
 {
     [DbContext(typeof(IntelectahDbContext))]
-    [Migration("20240827012306_addConcessionariaTable")]
-    partial class addConcessionariaTable
+    [Migration("20240827153127_updateVendaRelationTable")]
+    partial class updateVendaRelationTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,49 @@ namespace intelectah.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("intelectah.Domain.Entities.Cliente", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CPF")
+                        .IsRequired()
+                        .HasMaxLength(11)
+                        .IsUnicode(false)
+                        .HasColumnType("char(11)")
+                        .IsFixedLength();
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Telefone")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(15)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CPF")
+                        .IsUnique();
+
+                    b.ToTable("Cliente", (string)null);
+                });
 
             modelBuilder.Entity("intelectah.Domain.Entities.Concessionaria", b =>
                 {
@@ -244,11 +287,12 @@ namespace intelectah.Infrastructure.Migrations
                         .HasColumnType("bit");
 
                     b.Property<decimal>("PrecoVenda")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<string>("ProtocoloVenda")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -258,9 +302,13 @@ namespace intelectah.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ClienteID");
+
                     b.HasIndex("ConcessionariaID");
 
-                    b.ToTable("Venda");
+                    b.HasIndex("VeiculoID");
+
+                    b.ToTable("Venda", (string)null);
                 });
 
             modelBuilder.Entity("intelectah.Domain.Entities.Veiculo", b =>
@@ -276,11 +324,34 @@ namespace intelectah.Infrastructure.Migrations
 
             modelBuilder.Entity("intelectah.Domain.Entities.Venda", b =>
                 {
-                    b.HasOne("intelectah.Domain.Entities.Concessionaria", null)
+                    b.HasOne("intelectah.Domain.Entities.Cliente", "Cliente")
+                        .WithMany("Vendas")
+                        .HasForeignKey("ClienteID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("intelectah.Domain.Entities.Concessionaria", "Concessionaria")
                         .WithMany("Vendas")
                         .HasForeignKey("ConcessionariaID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("intelectah.Domain.Entities.Veiculo", "Veiculo")
+                        .WithMany("Vendas")
+                        .HasForeignKey("VeiculoID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cliente");
+
+                    b.Navigation("Concessionaria");
+
+                    b.Navigation("Veiculo");
+                });
+
+            modelBuilder.Entity("intelectah.Domain.Entities.Cliente", b =>
+                {
+                    b.Navigation("Vendas");
                 });
 
             modelBuilder.Entity("intelectah.Domain.Entities.Concessionaria", b =>
@@ -291,6 +362,11 @@ namespace intelectah.Infrastructure.Migrations
             modelBuilder.Entity("intelectah.Domain.Entities.Fabricante", b =>
                 {
                     b.Navigation("Veiculos");
+                });
+
+            modelBuilder.Entity("intelectah.Domain.Entities.Veiculo", b =>
+                {
+                    b.Navigation("Vendas");
                 });
 #pragma warning restore 612, 618
         }

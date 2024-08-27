@@ -16,7 +16,7 @@ namespace intelectah.MVC.Validators
                 .MaximumLength(50).WithMessage("O País de Origem deve ter no máximo 50 caracteres.");
 
             RuleFor(f => f.AnoFundacao)
-                .LessThanOrEqualTo(DateTime.Now.Year).WithMessage("O Ano de Fundação deve ser um ano válido no passado.")
+                .LessThan(DateTime.Now.Year).WithMessage("O Ano de Fundação deve ser um ano válido no passado.")
                 .GreaterThan(0).WithMessage("O Ano de Fundação deve ser maior que 0.");
 
             RuleFor(f => f.Website)

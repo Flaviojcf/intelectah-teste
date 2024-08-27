@@ -25,6 +25,8 @@ namespace intelectah.Domain.Entities
         public int FabricanteID { get; private set; }
         public Fabricante Fabricante { get; private set; }
 
+        public ICollection<Venda> Vendas { get; set; }
+
         public void Update(string modelo, int anoFabricacao, decimal preco, TipoVeiculo tipoVeiculo, string descricao, int fabricanteID)
         {
             ValidateDomain(modelo, anoFabricacao, preco, tipoVeiculo, descricao, fabricanteID);

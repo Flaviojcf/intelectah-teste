@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using intelectah.Domain.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace intelectah.MVC.Models
 {
@@ -26,5 +27,12 @@ namespace intelectah.MVC.Models
         [Required(ErrorMessage = "O ID do cliente é obrigatório")]
         [Range(1, int.MaxValue, ErrorMessage = "O ID do cliente deve ser válido")]
         public int ClienteID { get; set; }
+
+
+        public IList<Venda> Vendas { get; set; }
+        public IList<Concessionaria> Concessionarias { get; set; }
+        public IList<Veiculo> Veiculos { get; set; }
+        public IList<Cliente> Clientes { get; set; }
+        public IList<Fabricante> Fabricantes { get; set; }
     }
 }

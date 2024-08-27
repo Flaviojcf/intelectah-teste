@@ -16,6 +16,8 @@ namespace intelectah.Domain.Entities
         public string CPF { get; private set; }
         public string Telefone { get; private set; }
 
+        public ICollection<Venda> Vendas { get; private set; }
+
         public void Update(string nome, string CPF, string telefone)
         {
             ValidateDomain(nome, CPF, telefone);

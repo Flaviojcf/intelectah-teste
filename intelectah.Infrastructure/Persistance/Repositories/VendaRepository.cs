@@ -1,28 +1,38 @@
 ﻿using intelectah.Domain.Entities;
 using intelectah.Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace intelectah.Infrastructure.Persistance.Repositories
 {
-    public class VendaRepository : IVendaRepository
+    public class VendaRepository(IntelectahDbContext dbContext) : IVendaRepository
     {
-        public Task CreateAsync(Venda entity)
+        private readonly IntelectahDbContext _dbContext = dbContext;
+
+        public async Task CreateAsync(Venda venda)
         {
-            throw new NotImplementedException();
+            await _dbContext.Venda.AddAsync(venda);
+
+            await _dbContext.SaveChangesAsync();
         }
 
-        public Task<List<Venda>> GetAllAsync()
+        public async Task<List<Venda>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _dbContext.Venda
+                .Include(v => v.Veiculo)
+                .Include(v => v.Concessionaria)
+                .Include(v => v.Cliente)
+                .ToListAsync();
         }
 
-        public Task<Venda> GetByIdAsync(int id)
+
+        public async Task<Venda> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _dbContext.Venda.SingleOrDefaultAsync(v => v.Id == id);
         }
 
-        public Task SaveChangesAsync()
+        public async Task SaveChangesAsync()
         {
-            throw new NotImplementedException();
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

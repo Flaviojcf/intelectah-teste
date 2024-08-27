@@ -14,7 +14,6 @@ namespace intelectah.MVC.Models
         public string PaisOrigem { get; set; }
 
         [Required(ErrorMessage = "O ano de fundação é obrigatório.")]
-        [Range(1800, 2100, ErrorMessage = "Insira um ano válido.")]
         public int AnoFundacao { get; set; }
 
         [Required(ErrorMessage = "O URL do website é obrigatório.")]

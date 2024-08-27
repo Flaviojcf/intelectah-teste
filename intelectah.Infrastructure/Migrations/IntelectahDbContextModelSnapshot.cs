@@ -284,11 +284,12 @@ namespace intelectah.Infrastructure.Migrations
                         .HasColumnType("bit");
 
                     b.Property<decimal>("PrecoVenda")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<string>("ProtocoloVenda")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -298,9 +299,13 @@ namespace intelectah.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ClienteID");
+
                     b.HasIndex("ConcessionariaID");
 
-                    b.ToTable("Venda");
+                    b.HasIndex("VeiculoID");
+
+                    b.ToTable("Venda", (string)null);
                 });
 
             modelBuilder.Entity("intelectah.Domain.Entities.Veiculo", b =>
@@ -316,11 +321,34 @@ namespace intelectah.Infrastructure.Migrations
 
             modelBuilder.Entity("intelectah.Domain.Entities.Venda", b =>
                 {
-                    b.HasOne("intelectah.Domain.Entities.Concessionaria", null)
+                    b.HasOne("intelectah.Domain.Entities.Cliente", "Cliente")
+                        .WithMany("Vendas")
+                        .HasForeignKey("ClienteID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("intelectah.Domain.Entities.Concessionaria", "Concessionaria")
                         .WithMany("Vendas")
                         .HasForeignKey("ConcessionariaID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("intelectah.Domain.Entities.Veiculo", "Veiculo")
+                        .WithMany("Vendas")
+                        .HasForeignKey("VeiculoID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Cliente");
+
+                    b.Navigation("Concessionaria");
+
+                    b.Navigation("Veiculo");
+                });
+
+            modelBuilder.Entity("intelectah.Domain.Entities.Cliente", b =>
+                {
+                    b.Navigation("Vendas");
                 });
 
             modelBuilder.Entity("intelectah.Domain.Entities.Concessionaria", b =>
@@ -331,6 +359,11 @@ namespace intelectah.Infrastructure.Migrations
             modelBuilder.Entity("intelectah.Domain.Entities.Fabricante", b =>
                 {
                     b.Navigation("Veiculos");
+                });
+
+            modelBuilder.Entity("intelectah.Domain.Entities.Veiculo", b =>
+                {
+                    b.Navigation("Vendas");
                 });
 #pragma warning restore 612, 618
         }
