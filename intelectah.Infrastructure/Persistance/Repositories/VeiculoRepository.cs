@@ -28,6 +28,11 @@ namespace intelectah.Infrastructure.Persistance.Repositories
             return await _dbContext.Veiculo.SingleOrDefaultAsync(v => v.Id == id);
         }
 
+        public async Task<List<Veiculo>> GetVeiculosByFabricanteId(int fabricanteId)
+        {
+            return await _dbContext.Veiculo.Where(v => v.IsActive && v.FabricanteID == fabricanteId).Include(v => v.Fabricante).ToListAsync();
+        }
+
         public async Task SaveChangesAsync()
         {
             await _dbContext.SaveChangesAsync();

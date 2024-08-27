@@ -2,8 +2,9 @@
 using intelectah.Application.Queries.ClienteQueries.GetAllClientes;
 using intelectah.Application.Queries.ConcessionariaQueries.GetAllConcessionarias;
 using intelectah.Application.Queries.FabricanteQueries.GetAllFabricantes;
-using intelectah.Application.Queries.VeiculoQueries.GetAllVeiculos;
+using intelectah.Application.Queries.VeiculoQueries.GetVeiculosByFabricante;
 using intelectah.Application.Queries.VendaQueries.GetAllVendas;
+using intelectah.Domain.Entities;
 using intelectah.MVC.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -41,7 +42,6 @@ namespace intelectah.MVC.Controllers
 
             var getAllConcessionariaQuery = new GetAllConcessionariasQuery();
             var getAllFabricantesQuery = new GetAllFabricantesQuery();
-            var getAllVeiculoQuery = new GetAllVeiculosQuery();
             var getAllClienteQuery = new GetAllClientesQuery();
 
             var viewModel = new VendaViewModel
@@ -49,7 +49,7 @@ namespace intelectah.MVC.Controllers
                 Clientes = await _mediator.Send(getAllClienteQuery),
                 Concessionarias = await _mediator.Send(getAllConcessionariaQuery),
                 Fabricantes = await _mediator.Send(getAllFabricantesQuery),
-                Veiculos = await _mediator.Send(getAllVeiculoQuery)
+                Veiculos = new List<Veiculo>()
 
             };
 
@@ -75,6 +75,8 @@ namespace intelectah.MVC.Controllers
             }
             try
             {
+                model.ProtocoloVenda = Guid.NewGuid().ToString("N").Substring(0, 18);
+
                 var createVendaCommand = new CreateVendaCommand(model.DataVenda, model.PrecoVenda, model.ProtocoloVenda, model.VeiculoID, model.ConcessionariaID, model.ClienteID);
 
                 await _mediator.Send(createVendaCommand);
@@ -87,5 +89,16 @@ namespace intelectah.MVC.Controllers
             }
 
         }
+
+        [HttpGet]
+        public async Task<JsonResult> GetVeiculosByFabricante(int fabricanteId)
+        {
+            var getVeiculosQuery = new GetVeiculosByFabricanteQuery(fabricanteId);
+
+            var veiculos = await _mediator.Send(getVeiculosQuery);
+
+            return Json(veiculos.Select(v => new { v.Id, v.Modelo }));
+        }
+
     }
 }

@@ -28,8 +28,7 @@ namespace intelectah.MVC.Validators.Create
                 .NotEmpty().WithMessage("O CEP não pode estar vazio.")
                 .Must(ValidarCep).WithMessage("O CEP deve estar no formato XXXXX-XXX.");
 
-            RuleFor(c => c.Telefone)
-                .Must(ValidarTelefone).WithMessage("O Telefone deve estar no formato (XX) XXXX-XXXX ou (XX) XXXXX-XXXX.");
+            RuleFor(c => c.Telefone).Matches(@"^\d+$").WithMessage("O telefone deve conter apenas dígitos numéricos.");
 
             RuleFor(c => c.Email)
                 .NotEmpty().WithMessage("O E-mail não pode estar vazio.")
@@ -37,12 +36,6 @@ namespace intelectah.MVC.Validators.Create
 
             RuleFor(c => c.CapacidadeMaximaVeiculos)
                 .GreaterThan(0).WithMessage("A Capacidade Máxima de Veículos deve ser um valor inteiro positivo.");
-        }
-
-        private bool ValidarTelefone(string telefone)
-        {
-            var regex = new Regex(@"^\(\d{2}\) \d{4,5}-\d{4}$");
-            return regex.IsMatch(telefone);
         }
 
         private bool ValidarCep(string cep)
