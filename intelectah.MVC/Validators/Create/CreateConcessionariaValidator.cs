@@ -2,7 +2,7 @@
 using intelectah.MVC.Models;
 using System.Text.RegularExpressions;
 
-namespace intelectah.Application.Validators
+namespace intelectah.MVC.Validators.Create
 {
     public class CreateConcessionariaValidator : AbstractValidator<ConcessionariaViewModel>
     {

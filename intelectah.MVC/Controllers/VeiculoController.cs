@@ -8,12 +8,10 @@ using intelectah.Domain.Exceptions;
 using intelectah.Domain.Exceptions.intelectah.Domain.Exceptions;
 using intelectah.MVC.Models;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace intelectah.MVC.Controllers
 {
-    [Authorize(Roles = "Gerente")]
     public class VeiculoController : Controller
     {
         private readonly IMediator _mediator;

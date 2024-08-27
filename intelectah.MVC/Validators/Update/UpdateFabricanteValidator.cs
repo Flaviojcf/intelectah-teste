@@ -1,12 +1,15 @@
 ﻿using FluentValidation;
 using intelectah.MVC.Models;
 
-namespace intelectah.MVC.Validators
+namespace intelectah.MVC.Validators.Update
 {
-    public class FabricanteValidator : AbstractValidator<FabricantesViewModel>
+    public class UpdateFabricanteValidator : AbstractValidator<UpdateFabricanteViewModel>
     {
-        public FabricanteValidator()
+        public UpdateFabricanteValidator()
         {
+            RuleFor(f => f.Id)
+                .NotEmpty().WithMessage("O Id do Fabricante não pode ser nulo.");
+
             RuleFor(f => f.Nome)
                 .NotEmpty().WithMessage("O Nome do Fabricante não pode estar vazio.")
                 .MaximumLength(100).WithMessage("O Nome do Fabricante deve ter no máximo 100 caracteres.");

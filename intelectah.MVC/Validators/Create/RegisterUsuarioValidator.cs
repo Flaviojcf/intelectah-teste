@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using intelectah.MVC.Models;
 
-namespace intelectah.MVC.Validators
+namespace intelectah.MVC.Validators.Create
 {
     public class RegisterUsuarioValidator : AbstractValidator<RegisterUsuarioViewModel>
     {
@@ -12,7 +12,7 @@ namespace intelectah.MVC.Validators
 
             RuleFor(x => x.Email)
                 .NotEmpty().WithMessage("O campo Email é obrigatório.")
-                .EmailAddress().WithMessage("Email em formato inválido.");
+                .Matches(@"^[^@\s]+@[^@\s]+\.[^@\s]+$").WithMessage("Email em formato inválido.");
 
             RuleFor(x => x.Senha)
                 .NotEmpty().WithMessage("O campo Senha é obrigatório.");

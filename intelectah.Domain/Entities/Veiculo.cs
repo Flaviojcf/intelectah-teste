@@ -7,7 +7,7 @@ namespace intelectah.Domain.Entities
     {
         public Veiculo(string modelo, int anoFabricacao, decimal preco, TipoVeiculo tipoVeiculo, string descricao, int fabricanteID)
         {
-            ValidateDomain(modelo, anoFabricacao, preco, tipoVeiculo, descricao, fabricanteID);
+            ValidateDomain(modelo, anoFabricacao, preco, tipoVeiculo, fabricanteID);
             Modelo = modelo;
             AnoFabricacao = anoFabricacao;
             Preco = preco;
@@ -29,7 +29,7 @@ namespace intelectah.Domain.Entities
 
         public void Update(string modelo, int anoFabricacao, decimal preco, TipoVeiculo tipoVeiculo, string descricao, int fabricanteID)
         {
-            ValidateDomain(modelo, anoFabricacao, preco, tipoVeiculo, descricao, fabricanteID);
+            ValidateDomain(modelo, anoFabricacao, preco, tipoVeiculo, fabricanteID);
             Modelo = modelo;
             AnoFabricacao = anoFabricacao;
             Preco = preco;
@@ -38,13 +38,12 @@ namespace intelectah.Domain.Entities
             FabricanteID = fabricanteID;
         }
 
-        private static void ValidateDomain(string modelo, int anoFabricacao, decimal preco, TipoVeiculo tipoVeiculo, string descricao, int fabricanteID)
+        private static void ValidateDomain(string modelo, int anoFabricacao, decimal preco, TipoVeiculo tipoVeiculo, int fabricanteID)
         {
             DomainExceptionValidation.When(string.IsNullOrEmpty(modelo), "O modelo é obrigatório");
             DomainExceptionValidation.When(anoFabricacao <= 0, "O ano de fabricação deve ser maior que zero");
             DomainExceptionValidation.When(preco <= 0, "O preço deve ser maior que zero");
             DomainExceptionValidation.When(!Enum.IsDefined(typeof(TipoVeiculo), tipoVeiculo), "O tipo de veículo é obrigatório");
-            DomainExceptionValidation.When(string.IsNullOrEmpty(descricao), "A descrição é obrigatória");
             DomainExceptionValidation.When(fabricanteID <= 0, "O ID do fabricante deve ser válido");
         }
 
