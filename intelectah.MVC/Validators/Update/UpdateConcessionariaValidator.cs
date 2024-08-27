@@ -2,12 +2,14 @@
 using intelectah.MVC.Models;
 using System.Text.RegularExpressions;
 
-namespace intelectah.MVC.Validators.Create
+namespace intelectah.MVC.Validators.Update
 {
-    public class CreateConcessionariaValidator : AbstractValidator<ConcessionariaViewModel>
+    public class UpdateConcessionariaValidator : AbstractValidator<UpdateConcessionariaViewModel>
     {
-        public CreateConcessionariaValidator()
+        public UpdateConcessionariaValidator()
         {
+            RuleFor(c => c.Id).NotEmpty().WithMessage("O Id do Veículo não pode ser nulo.");
+
             RuleFor(c => c.Nome)
                 .NotEmpty().WithMessage("O Nome da Concessionária não pode estar vazio.")
                 .MaximumLength(100).WithMessage("O Nome da Concessionária deve ter no máximo 100 caracteres.");
