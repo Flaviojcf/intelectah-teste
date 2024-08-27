@@ -4,7 +4,6 @@ using intelectah.Application.Commands.VeiculoCommands.UpdateVeiculo;
 using intelectah.Application.Queries.FabricanteQueries.GetAllFabricantes;
 using intelectah.Application.Queries.VeiculoQueries.GetAllVeiculos;
 using intelectah.Application.Queries.VeiculoQueries.GetVeiculoById;
-using intelectah.Domain.Exceptions;
 using intelectah.Domain.Exceptions.intelectah.Domain.Exceptions;
 using intelectah.MVC.Models;
 using MediatR;
@@ -139,10 +138,6 @@ namespace intelectah.MVC.Controllers
                 await _mediator.Send(updateVeiculoCommand);
 
                 return Json(new { success = true, message = "Informações atualizadas com sucesso!" });
-            }
-            catch (FabricanteAlreadyExistException ex)
-            {
-                return Json(new { success = false, message = ex.Message });
             }
             catch (Exception ex)
             {

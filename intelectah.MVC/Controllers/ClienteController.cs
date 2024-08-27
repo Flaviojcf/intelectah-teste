@@ -4,7 +4,6 @@ using intelectah.Application.Commands.ClienteCommands.UpdateCliente;
 using intelectah.Application.Queries.ClienteQueries.GetAllClientes;
 using intelectah.Application.Queries.ClienteQueries.GetClienteById;
 using intelectah.Domain.Exceptions;
-using intelectah.Domain.Exceptions.intelectah.Domain.Exceptions;
 using intelectah.MVC.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -98,9 +97,9 @@ namespace intelectah.MVC.Controllers
 
                 return View("EditarCliente", viewModel);
             }
-            catch (VeiculoNotFoundException)
+            catch (ClienteNotFoundException)
             {
-                return RedirectToAction("Veiculos");
+                return RedirectToAction("Clientes");
             }
             catch (Exception ex)
             {
@@ -129,7 +128,7 @@ namespace intelectah.MVC.Controllers
 
                 return Json(new { success = true, message = "Informações atualizadas com sucesso!" });
             }
-            catch (FabricanteAlreadyExistException ex)
+            catch (ClienteAlreadyExistException ex)
             {
                 return Json(new { success = false, message = ex.Message });
             }
