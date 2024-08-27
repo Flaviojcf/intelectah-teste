@@ -1,5 +1,5 @@
 ﻿using FluentValidation.AspNetCore;
-using intelectah.MVC.Validators;
+using intelectah.MVC.Validators.Create;
 
 namespace intelectah.MVC
 {

@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Queries\ConcessionariaQueries\NovaPasta\**" />
+    <EmbeddedResource Remove="Queries\ConcessionariaQueries\NovaPasta\**" />
+    <None Remove="Queries\ConcessionariaQueries\NovaPasta\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
   </ItemGroup>
@@ -14,10 +20,6 @@
   <ItemGroup>
     <ProjectReference Include="..\intelectah.Domain\intelectah.Domain.csproj" />
     <ProjectReference Include="..\intelectah.Infrastructure\intelectah.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Queries\ConcessionariaQueries\NovaPasta\" />
   </ItemGroup>
 
 </Project>

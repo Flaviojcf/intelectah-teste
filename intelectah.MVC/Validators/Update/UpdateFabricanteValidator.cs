@@ -1,12 +1,15 @@
 ﻿using FluentValidation;
-using intelectah.Domain.Entities;
+using intelectah.MVC.Models;
 
-namespace intelectah.Application.Validators
+namespace intelectah.MVC.Validators.Update
 {
-    public class FabricanteValidator : AbstractValidator<Fabricante>
+    public class UpdateFabricanteValidator : AbstractValidator<UpdateFabricanteViewModel>
     {
-        public FabricanteValidator()
+        public UpdateFabricanteValidator()
         {
+            RuleFor(f => f.Id)
+                .NotEmpty().WithMessage("O Id do Fabricante não pode ser nulo.");
+
             RuleFor(f => f.Nome)
                 .NotEmpty().WithMessage("O Nome do Fabricante não pode estar vazio.")
                 .MaximumLength(100).WithMessage("O Nome do Fabricante deve ter no máximo 100 caracteres.");
@@ -16,7 +19,7 @@ namespace intelectah.Application.Validators
                 .MaximumLength(50).WithMessage("O País de Origem deve ter no máximo 50 caracteres.");
 
             RuleFor(f => f.AnoFundacao)
-                .LessThanOrEqualTo(DateTime.Now.Year).WithMessage("O Ano de Fundação deve ser um ano válido no passado.")
+                .LessThan(DateTime.Now.Year).WithMessage("O Ano de Fundação deve ser um ano válido no passado.")
                 .GreaterThan(0).WithMessage("O Ano de Fundação deve ser maior que 0.");
 
             RuleFor(f => f.Website)

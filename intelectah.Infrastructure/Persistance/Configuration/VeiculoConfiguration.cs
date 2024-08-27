@@ -34,7 +34,8 @@ namespace intelectah.Infrastructure.Persistance.Configuration
 
 
             builder.Property(v => v.Descricao)
-                .HasMaxLength(500);
+                .HasMaxLength(500)
+                .IsRequired(false);
 
             builder.HasOne(v => v.Fabricante)
                    .WithMany(f => f.Veiculos)

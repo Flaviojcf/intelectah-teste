@@ -66,6 +66,10 @@ namespace intelectah.MVC.Controllers
 
                 return Json(new { success = true, message = "Cadastro realizado com sucesso!" });
             }
+            catch (ConcessionariaAlreadyExistException ex)
+            {
+                return Json(new { success = false, message = ex.Message });
+            }
             catch (Exception ex)
             {
                 return Json(new { success = false, message = ex.Message });
@@ -133,7 +137,7 @@ namespace intelectah.MVC.Controllers
 
                 return Json(new { success = true, message = "Informações atualizadas com sucesso!" });
             }
-            catch (FabricanteAlreadyExistException ex)
+            catch (ConcessionariaAlreadyExistException ex)
             {
                 return Json(new { success = false, message = ex.Message });
             }

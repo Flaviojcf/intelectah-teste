@@ -2,7 +2,7 @@
 using intelectah.MVC.Models;
 using System.Text.RegularExpressions;
 
-namespace intelectah.Application.Validators
+namespace intelectah.MVC.Validators.Create
 {
     public class CreateConcessionariaValidator : AbstractValidator<ConcessionariaViewModel>
     {
@@ -33,7 +33,7 @@ namespace intelectah.Application.Validators
 
             RuleFor(c => c.Email)
                 .NotEmpty().WithMessage("O E-mail não pode estar vazio.")
-                .EmailAddress().WithMessage("O E-mail deve ter um formato válido.");
+                .Matches(@"^[^@\s]+@[^@\s]+\.[^@\s]+$").WithMessage("Email em formato inválido.");
 
             RuleFor(c => c.CapacidadeMaximaVeiculos)
                 .GreaterThan(0).WithMessage("A Capacidade Máxima de Veículos deve ser um valor inteiro positivo.");

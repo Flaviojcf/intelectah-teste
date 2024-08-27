@@ -1,13 +1,15 @@
 ﻿using FluentValidation;
-using intelectah.Domain.Entities;
+using intelectah.MVC.Models;
 using System.Text.RegularExpressions;
 
-namespace intelectah.Application.Validators
+namespace intelectah.MVC.Validators.Update
 {
-    public class ConcessionariaValidator : AbstractValidator<Concessionaria>
+    public class UpdateConcessionariaValidator : AbstractValidator<UpdateConcessionariaViewModel>
     {
-        public ConcessionariaValidator()
+        public UpdateConcessionariaValidator()
         {
+            RuleFor(c => c.Id).NotEmpty().WithMessage("O Id da Concessionária não pode ser nulo.");
+
             RuleFor(c => c.Nome)
                 .NotEmpty().WithMessage("O Nome da Concessionária não pode estar vazio.")
                 .MaximumLength(100).WithMessage("O Nome da Concessionária deve ter no máximo 100 caracteres.");
@@ -33,7 +35,7 @@ namespace intelectah.Application.Validators
 
             RuleFor(c => c.Email)
                 .NotEmpty().WithMessage("O E-mail não pode estar vazio.")
-                .EmailAddress().WithMessage("O E-mail deve ter um formato válido.");
+                .Matches(@"^[^@\s]+@[^@\s]+\.[^@\s]+$").WithMessage("Email em formato inválido.");
 
             RuleFor(c => c.CapacidadeMaximaVeiculos)
                 .GreaterThan(0).WithMessage("A Capacidade Máxima de Veículos deve ser um valor inteiro positivo.");
