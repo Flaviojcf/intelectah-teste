@@ -1,0 +1,82 @@
+﻿@using intelectah.Domain.Records
+
+@{
+    Layout = "~/Views/Shared/_LayoutApp.cshtml";
+    ViewData["Title"] = "Relatório de Vendas";
+
+    var vendasMensais = ViewBag.VendasMensais as List<VendaMensalRecord>;
+
+    var mensalLabels = vendasMensais.Select(v => v.Mes).Distinct().ToList();
+
+    var datasets = vendasMensais
+        .GroupBy(v => v.Concessionaria)
+        .Select(g => new
+        {
+            Label = g.Key,
+            Data = mensalLabels.Select(m => g.FirstOrDefault(v => v.Mes == m)?.TotalVendas ?? 0).ToArray(),
+            BackgroundColor = "rgba(54, 162, 235, 0.2)",
+            BorderColor = "rgba(255, 255, 255, 1)",
+            BorderWidth = 1
+        }).ToList();
+}
+
+<h2 class="text-white text-center">Relatório de Vendas</h2>
+
+<div class="d-flex justify-content-center mb-5">
+    <button id="exportPdfButton" class="btn btn-primary mt-3">Exportar Relatório em PDF</button>
+</div>
+
+<div style="width: 800px; height: 400px; margin: 0 auto;">
+    <canvas id="salesChart" width="800" height="400"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    var ctx = document.getElementById('salesChart').getContext('2d');
+    var salesChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: @Html.Raw(Json.Serialize(mensalLabels)),
+            datasets: @Html.Raw(Json.Serialize(datasets))
+            },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: '#ffffff'
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.2)'
+                    }
+                },
+                x: {
+                    ticks: {
+                        color: '#ffffff'
+                    },
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.2)'
+                    }
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Vendas Mensais por Concessionária',
+                    color: '#ffffff'
+                },
+                legend: {
+                    labels: {
+                        color: '#ffffff'
+                    }
+                }
+            }
+        }
+    });
+
+    document.getElementById('exportPdfButton').addEventListener('click', function () {
+        window.location.href = '@Url.Action("ExportVendasMensaisPdf", "Relatorio")';
+    });
+</script>

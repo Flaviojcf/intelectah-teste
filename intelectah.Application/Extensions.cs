@@ -22,6 +22,7 @@ namespace intelectah.Application
             services.AddScoped<IValidateClienteRulesService, ValidateClienteRulesService>();
             services.AddScoped<IValidateVendaRulesService, ValidateVendaRulesService>();
             services.AddScoped<IDashboardService, DashboardService>();
+            services.AddScoped<IRelatorioService, RelatorioService>();
             return services;
         }
     }

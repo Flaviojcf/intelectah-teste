@@ -1,4 +1,5 @@
 ﻿using intelectah.Domain.Entities;
+using intelectah.Domain.Records;
 using intelectah.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -34,5 +35,25 @@ namespace intelectah.Infrastructure.Persistance.Repositories
         {
             await _dbContext.SaveChangesAsync();
         }
+
+        public async Task<List<VendaMensalRecord>> GetVendasMensaisAsync()
+        {
+            return await _dbContext.Venda
+                .Include(v => v.Concessionaria)
+                .GroupBy(v => new
+                {
+                    Mes = v.DataVenda.Month,
+                    Ano = v.DataVenda.Year,
+                    ConcessionariaNome = v.Concessionaria.Nome
+                })
+                .Select(g => new VendaMensalRecord(
+                    $"{g.Key.Mes}/{g.Key.Ano}",
+                    g.Key.ConcessionariaNome,
+                    g.Count(),
+                    g.Sum(v => v.PrecoVenda)
+                ))
+                .ToListAsync();
+        }
+
     }
 }
