@@ -24,6 +24,11 @@ namespace intelectah.Infrastructure.Persistance.Repositories
             return await _dbContext.Cliente.SingleOrDefaultAsync(v => v.Id == id);
         }
 
+        public async Task<Cliente> GetClienteByCPF(string CPF)
+        {
+            return await _dbContext.Cliente.SingleOrDefaultAsync(c => c.CPF == CPF);
+        }
+
         public async Task SaveChangesAsync()
         {
             await _dbContext.SaveChangesAsync();

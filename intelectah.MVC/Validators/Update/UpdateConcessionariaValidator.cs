@@ -8,7 +8,7 @@ namespace intelectah.MVC.Validators.Update
     {
         public UpdateConcessionariaValidator()
         {
-            RuleFor(c => c.Id).NotEmpty().WithMessage("O Id do Veículo não pode ser nulo.");
+            RuleFor(c => c.Id).NotEmpty().WithMessage("O Id da Concessionária não pode ser nulo.");
 
             RuleFor(c => c.Nome)
                 .NotEmpty().WithMessage("O Nome da Concessionária não pode estar vazio.")

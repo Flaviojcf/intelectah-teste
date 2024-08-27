@@ -19,6 +19,7 @@ namespace intelectah.Application
             services.AddScoped<IValidateFabricanteRulesService, ValidateFabricanteRulesService>();
             services.AddScoped<IValidateConcessionariaRulesService, ValidateConcessionariaRulesService>();
             services.AddScoped<IValidateVeiculoRulesService, ValidateVeiculoRulesService>();
+            services.AddScoped<IValidateClienteRulesService, ValidateClienteRulesService>();
             services.AddScoped<IDashboardService, DashboardService>();
             return services;
         }
