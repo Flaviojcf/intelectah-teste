@@ -2,6 +2,7 @@
 using intelectah.Application.Services.Interfaces;
 using intelectah.Domain.Entities;
 using MediatR;
+using System.Globalization;
 
 namespace intelectah.Application.Services
 {
@@ -14,7 +15,7 @@ namespace intelectah.Application.Services
             _mediator = mediator;
         }
 
-        public List<RecentActivityRecord> GetRecentActivitiesAsync(IList<Veiculo> veiculos, IList<Concessionaria> concessionarias, IList<Fabricante> fabricantes)
+        public List<RecentActivityRecord> GetRecentActivitiesAsync(IList<Veiculo> veiculos, IList<Concessionaria> concessionarias, IList<Fabricante> fabricantes, IList<Venda> vendas)
         {
             var recentActivities = new List<RecentActivityRecord>();
 
@@ -47,6 +48,7 @@ namespace intelectah.Application.Services
             }
 
             var recentFabricante = fabricantes.OrderByDescending(f => f.UpdatedAt).FirstOrDefault();
+
             if (recentFabricante != null)
             {
                 var atividadeFabricante = recentFabricante.UpdatedAt != recentFabricante.CreatedAt
@@ -57,6 +59,18 @@ namespace intelectah.Application.Services
                     Data: recentFabricante.UpdatedAt,
                     Atividade: atividadeFabricante,
                     Detalhes: $"Nome: {recentFabricante.Nome}, Website: {recentFabricante.Website}"
+                ));
+            }
+
+            var recenteVenda = vendas.OrderByDescending(v => v.UpdatedAt).FirstOrDefault();
+
+            if (recenteVenda != null)
+            {
+
+                recentActivities.Add(new RecentActivityRecord(
+                    Data: recenteVenda.UpdatedAt,
+                    Atividade: "Venda realizada",
+                    Detalhes: $"Preço: {recenteVenda.PrecoVenda.ToString("C", new CultureInfo("pt-BR"))}, Cliente: {recenteVenda.Cliente.Nome}"
                 ));
             }
 
