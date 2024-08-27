@@ -1,0 +1,51 @@
+﻿@model intelectah.MVC.Models.VendaViewModel
+
+@using (Html.BeginForm("RegistrarVenda", "Venda", FormMethod.Post, new { id = "registerVendaForm" }))
+{
+    <div class="form-group">
+        @Html.Label("Veiculo", "Veículo", new { @class = "form-label" })
+        @Html.TextBox("Veiculo", null, new { @class = "form-control", placeholder = "Pesquisar veículo por modelo ou fabricante", oninput = "FctPesquisarVeiculo(this.value)" })
+        @Html.DropDownListFor(model => model.VeiculoID, new SelectList(Enumerable.Empty<SelectListItem>(), "Value", "Text"), "Selecione um veículo", new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Concessionaria", "Concessionária", new { @class = "form-label" })
+        @Html.TextBox("Concessionaria", null, new { @class = "form-control", placeholder = "Pesquisar concessionária por nome ou localização", oninput = "FctPesquisarConcessionaria(this.value)" })
+        @Html.DropDownListFor(model => model.ConcessionariaID, new SelectList(Enumerable.Empty<SelectListItem>(), "Value", "Text"), "Selecione uma concessionária", new { @class = "form-control" })
+    </div>
+
+    @* <div class="form-group">
+        @Html.LabelFor(model => model.NomeCliente, "Nome do Cliente", new { @class = "form-label" })
+        @Html.TextBoxFor(model => model.NomeCliente, new { @class = "form-control", placeholder = "Digite o nome do cliente" })
+        @Html.ValidationMessageFor(model => model.NomeCliente, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CPF, "CPF", new { @class = "form-label" })
+        @Html.TextBoxFor(model => model.CPF, new { @class = "form-control", placeholder = "Digite o CPF do cliente" })
+        @Html.ValidationMessageFor(model => model.CPF, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Telefone, "Telefone de Contato", new { @class = "form-label" })
+        @Html.TextBoxFor(model => model.Telefone, new { @class = "form-control", placeholder = "Digite o telefone de contato" })
+        @Html.ValidationMessageFor(model => model.Telefone, "", new { @class = "text-danger" })
+    </div> *@ 
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.DataVenda, "Data da Venda", new { @class = "form-label" })
+        @Html.TextBoxFor(model => model.DataVenda, new { @class = "form-control", type = "date" })
+        @Html.ValidationMessageFor(model => model.DataVenda, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.PrecoVenda, "Preço de Venda", new { @class = "form-label" })
+        @Html.TextBoxFor(model => model.PrecoVenda, new { @class = "form-control", placeholder = "Digite o preço de venda" })
+        @Html.ValidationMessageFor(model => model.PrecoVenda, "", new { @class = "text-danger" })
+    </div>
+
+    <button id="submitButton" class="btn btn-primary w-100 py-2 mt-3" type="submit">
+        Finalizar Venda
+        <span id="spinner" class="spinner-border spinner-border-sm ms-2 d-none" role="status" aria-hidden="true"></span>
+    </button>
+}

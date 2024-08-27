@@ -21,11 +21,29 @@
 
     <header style="width: 100%;">
         <nav class="navbar navbar-light bg-white">
-            <div class="container">
+            <div class="container d-flex justify-content-between align-items-center">
                 <img src="~/img/logo-intelectah.png" alt="" width="220" height="46">
+
+                <div class="d-flex align-items-center gap-5">
+                    <a class="d-flex align-items-center text-dark font-weight-bold text-sm gap-2 nav-hover" target="_blank" href="https://www.linkedin.com/in/flávio-jcosta" style="transition: color 0.5s; text-decoration:none;">
+                        <i class="bi bi-linkedin" style="font-size: 20px;"></i>
+                        <span class="ml-2">LinkedIn</span>
+                    </a>
+                    <a class="d-flex align-items-center text-dark font-weight-bold text-sm gap-2 nav-hover" target="_blank" href="https://github.com/Flaviojcf" style="transition: color 0.5s; text-decoration:none;">
+                        <i class="bi bi-github" style="font-size: 20px;"></i>
+                        <span class="ml-2">GitHub</span>
+                    </a>
+                    <a class="d-flex align-items-center text-dark font-weight-bold text-sm gap-2 nav-hover" target="_blank" href="https://portfolio-flaviojcf.vercel.app/" style="transition: color 0.5s; text-decoration:none;">
+                        <i class="bi bi-laptop" style="font-size: 20px;"></i>
+                        <span class="ml-2">Portfólio</span>
+                    </a>
+                </div>
+
+
             </div>
         </nav>
     </header>
+
 
     <main role="main" class="flex-grow-1 d-flex align-items-center justify-content-center">
         <div class="d-flex flex-column p-3 border-end border-light" style="width:280px; height: 100%;">
@@ -107,8 +125,8 @@
                 <li class="nav-item custom-hover">
                     @if (User.IsInRole("Vendedor"))
                     {
-                        <a href="@Url.Action("Vendas", "Vendas")"
-                           class="nav-link text-white @(IsActive("Vendas", "Vendas"))">
+                        <a href="@Url.Action("Vendas", "Venda")"
+                           class="nav-link text-white @(IsActive("Vendas", "Venda"))">
                             <i class="bi bi-cart pe-none me-2"></i>
                             Vendas
                         </a>
