@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace intelectah.MVC.Controllers
 {
-    [Authorize(Roles = "Gerente")]
+    [Authorize(Roles = "Gerente, Dev")]
     public class VeiculoController : Controller
     {
         private readonly IMediator _mediator;

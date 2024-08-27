@@ -5,5 +5,6 @@
         Administrador = 0,
         Vendedor = 1,
         Gerente = 2,
+        Dev = 3
     }
 }
