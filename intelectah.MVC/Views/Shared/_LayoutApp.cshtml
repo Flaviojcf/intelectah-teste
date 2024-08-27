@@ -124,8 +124,28 @@
                         </a>
                     }
                 </li>
-            </ul>
 
+                <li class="nav-item custom-hover">
+                    @if (User.IsInRole("Gerente"))
+                    {
+                        <a href="@Url.Action("Relatorios", "Relatorio")"
+                           class="nav-link text-white @(IsActive("Relatorios", "Relatorio"))">
+                            <i class="bi bi-file-earmark-bar-graph-fill pe-none me-2"></i>
+                            Relatorios
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="#"
+                           class="nav-link text-muted disabled"
+                           title="Acesso restrito"
+                           style="pointer-events: none;">
+                            <i class="bi bi-file-earmark-bar-graph-fill pe-none me-2"></i>
+                            Relatorios
+                        </a>
+                    }
+                </li>
+            </ul>
 
             <div class="dropdown mt-auto">
                 <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">

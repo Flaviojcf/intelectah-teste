@@ -1,13 +1,106 @@
 ﻿@{
     Layout = "~/Views/Shared/_LayoutApp.cshtml";
-}
-
-@{
     ViewData["Title"] = "Dashboard";
+
+    var recentActivities = new List<dynamic>
+    {
+        new { Date = DateTime.Now.AddMinutes(-10), Description = "Veículo adicionado", Details = "Modelo: Ford Fiesta, Ano: 2019" },
+        new { Date = DateTime.Now.AddHours(-1), Description = "Concessionária registrada", Details = "Nome: AutoShop XYZ, Cidade: São Paulo" },
+        new { Date = DateTime.Now.AddHours(-2), Description = "Venda realizada", Details = "Veículo: Honda Civic, Vendedor: João Silva" },
+        new { Date = DateTime.Now.AddDays(-1), Description = "Fabricante atualizado", Details = "Nome: Toyota, Website: www.toyota.com.br" }
+    };
+
+    var notifications = new List<string>
+    {
+        "Sistema será atualizado amanhã às 03:00 AM.",
+        "Novo relatório de vendas está disponível.",
+        "Backup realizado com sucesso."
+    };
 }
 
-<div>
-    <main class="w-100 m-auto text-white" id="register">
-       <p>oi</p>
-    </main>
+<div class="container mt-5">
+    <div class="row ">
+        <div class="col-md-12">
+            <h2 class="text-center text-white">Bem-vindo ao Sistema de Gestão</h2>
+            <p class="text-center text-muted text-white">Aqui está uma visão geral das atividades recentes e status do sistema.</p>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Veículos</h5>
+                    <p class="card-text">10 veiculos cadastrados</p>
+                    <a href="@Url.Action("Veiculos", "Veiculo")" class="btn btn-primary">Ver Detalhes</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Concessionárias</h5>
+                    <p class="card-text">20 concessionárias registradas</p>
+                    <a href="@Url.Action("Concessionarias", "Concessionaria")" class="btn btn-primary">Ver Detalhes</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Vendas</h5>
+                    <p class="card-text">30 vendas realizadas</p>
+                    <a href="@Url.Action("Vendas", "Vendas")" class="btn btn-primary">Ver Detalhes</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Fabricantes</h5>
+                    <p class="card-text">40 fabricantes cadastrados</p>
+                    <a href="@Url.Action("Fabricantes", "Fabricante")" class="btn btn-primary">Ver Detalhes</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <div class="row mt-4">
+            <div class="col-md-12 text-white">
+                <h4>Atividades Recentes</h4>
+                <table class="table table-striped text-white">
+                    <thead>
+                        <tr>
+                            <th>Data</th>
+                            <th>Atividade</th>
+                            <th>Detalhes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var activity in recentActivities)
+                        {
+                            <tr class="text-white">
+                                <td>@activity.Date.ToString("dd/MM/yyyy HH:mm")</td>
+                                <td>@activity.Description</td>
+                                <td>@activity.Details</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row mt-4 text-white">
+            <div class="col-md-12">
+                <h4>Notificações</h4>
+                <ul class="list-group">
+                    @foreach (var notification in notifications)
+                    {
+                        <li class="list-group-item">@notification</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
