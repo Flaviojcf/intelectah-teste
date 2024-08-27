@@ -1,28 +1,37 @@
 ﻿using intelectah.Domain.Entities;
 using intelectah.Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace intelectah.Infrastructure.Persistance.Repositories
 {
-    public class ConcessionariaRepository : IConcessionariaRepository
+    public class ConcessionariaRepository(IntelectahDbContext dbContext) : IConcessionariaRepository
     {
-        public Task CreateAsync(Concessionaria entity)
+        private readonly IntelectahDbContext _dbContext = dbContext;
+        public async Task CreateAsync(Concessionaria concessionaria)
         {
-            throw new NotImplementedException();
+            await _dbContext.Concessionaria.AddAsync(concessionaria);
+
+            await _dbContext.SaveChangesAsync();
         }
 
-        public Task<List<Concessionaria>> GetAllAsync()
+        public async Task<List<Concessionaria>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _dbContext.Concessionaria.Where(c => c.IsActive).ToListAsync();
         }
 
-        public Task<Concessionaria> GetByIdAsync(int id)
+        public async Task<Concessionaria> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _dbContext.Concessionaria.SingleOrDefaultAsync(c => c.Id == id);
         }
 
-        public Task SaveChangesAsync()
+        public async Task<Concessionaria> GetByNameAsync(string nome)
         {
-            throw new NotImplementedException();
+            return await _dbContext.Concessionaria.SingleOrDefaultAsync(c => c.Nome == nome);
+        }
+
+        public async Task SaveChangesAsync()
+        {
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

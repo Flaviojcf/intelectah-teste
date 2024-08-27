@@ -1,0 +1,89 @@
+﻿@using intelectah.Domain.TypesEnum
+@model intelectah.MVC.Models.ConcessionariaViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutApp.cshtml";
+}
+
+@{
+    ViewData["Title"] = "Cadastrar Concessionária";
+}
+
+
+<div class="row">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a class="text-white" href="@Url.Action("Index", "Dashboard", new { area = "" }, null)"><i class="bi bi-house-door"></i> Dashboard</a></li>
+            <li class="breadcrumb-item"><a class="text-white" href="@Url.Action("Concessionarias", "Concessionaria", new { area = "" }, null)"><i class="bi bi-building"></i> Concessionárias</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><i class="bi bi-plus-square"></i> Cadastrar</li>
+        </ol>
+    </nav>
+
+    <div class="col-md-8 offset-md-2 mt-5">
+        <div class="card">
+            <div class="card-header bg-primary text-white text-center">
+                <h4 class="mb-0">Adicionar Nova Concessionária</h4>
+            </div>
+            <div class="card-body">
+                @using (Html.BeginForm("CadastrarConcessionaria", "Concessionaria", FormMethod.Post, new { id = "registerConcessionariaForm" }))
+                {
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Nome, "Nome da Concessionária", new { @class = "form-label" })
+                        @Html.TextBoxFor(model => model.Nome, new { @class = "form-control", placeholder = "Insira o nome da concessionária" })
+                        @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Endereco, "Endereço", new { @class = "form-label" })
+                        @Html.TextBoxFor(model => model.Endereco, new { @class = "form-control", placeholder = "Insira o endereço" })
+                        @Html.ValidationMessageFor(model => model.Endereco, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Cidade, "Cidade", new { @class = "form-label" })
+                        @Html.TextBoxFor(model => model.Cidade, new { @class = "form-control", placeholder = "Insira a cidade" })
+                        @Html.ValidationMessageFor(model => model.Cidade, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Estado, "Estado", new { @class = "form-label" })
+                        @Html.TextBoxFor(model => model.Estado, new { @class = "form-control", placeholder = "Insira o estado" })
+                        @Html.ValidationMessageFor(model => model.Estado, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CEP, "CEP", new { @class = "form-label" })
+                        @Html.TextBoxFor(model => model.CEP, new { @class = "form-control", placeholder = "Insira o CEP", pattern = @"\d{5}-\d{3}" })
+                        @Html.ValidationMessageFor(model => model.CEP, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Telefone, "Telefone", new { @class = "form-label" })
+                        @Html.TextBoxFor(model => model.Telefone, new { @class = "form-control", placeholder = "Insira o telefone", pattern = @"\(\d{2}\) \d{4,5}-\d{4}" })
+                        @Html.ValidationMessageFor(model => model.Telefone, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Email, "E-mail", new { @class = "form-label" })
+                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "Insira o e-mail", type = "email" })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CapacidadeMaximaVeiculos, "Capacidade Máxima de Veículos", new { @class = "form-label" })
+                        @Html.TextBoxFor(model => model.CapacidadeMaximaVeiculos, new { @class = "form-control", placeholder = "Insira a capacidade máxima de veículos", type = "number" })
+                        @Html.ValidationMessageFor(model => model.CapacidadeMaximaVeiculos, "", new { @class = "text-danger" })
+                    </div>
+
+                    <button id="submitButton" class="btn btn-primary w-100 py-2 mt-3" type="button" onclick="FctCadastrarConcessionaria(event)">
+                        Adicionar Concessionária
+                        <span id="spinner" class="spinner-border spinner-border-sm ms-2 d-none" role="status" aria-hidden="true"></span>
+                    </button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/js/Concessionaria/cadastrarConcessionaria.js"></script>

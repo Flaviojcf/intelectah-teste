@@ -17,6 +17,7 @@ namespace intelectah.Application
         {
             services.AddScoped<IValidateUsuarioRulesService, ValidateUsuarioRulesService>();
             services.AddScoped<IValidateFabricanteRulesService, ValidateFabricanteRulesService>();
+            services.AddScoped<IValidateConcessionariaRulesService, ValidateConcessionariaRulesService>();
 
             return services;
         }
