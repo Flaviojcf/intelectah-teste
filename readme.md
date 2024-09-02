@@ -1,4 +1,4 @@
-<h1 align="center">Library Manager</h1>
+<h1 align="center">intelectah-teste</h1>
 
 <br />
 <div align="center">
@@ -7,7 +7,7 @@
   </a>
 </div>
 
-O projeto envolve o desenvolvimento de uma aplicaÁ„o web para a gest„o de concession·rias de veÌculos utilizando ASP.NET MVC e Entity Framework. A aplicaÁ„o tem como objetivo gerenciar fabricantes de veÌculos, concession·rias, e a realizaÁ„o de vendas, integrando autenticaÁ„o e autorizaÁ„o de usu·rios.
+O projeto envolve o desenvolvimento de uma aplica√ß√£o web para a gest√£o de concession√°rias de ve√≠culos utilizando ASP.NET MVC e Entity Framework. A aplica√ß√£o tem como objetivo gerenciar fabricantes de ve√≠culos, concession√°rias, e a realiza√ß√£o de vendas, integrando autentica√ß√£o e autoriza√ß√£o de usu√°rios.
 
 ## Tecnologias, Arquitetura e Design Patterns
 - ASP Net MVC
@@ -18,9 +18,9 @@ O projeto envolve o desenvolvimento de uma aplicaÁ„o web para a gest„o de conces
 - MediatR
 - FluentValidation
 
-# Rodando a aplicaÁ„o localmente
+# Rodando a aplica√ß√£o localmente
 
-## Clonando a aplicaÁ„o
+## Clonando a aplica√ß√£o
 
 ``` 
 https://github.com/Flaviojcf/intelectah-teste.git
@@ -32,11 +32,11 @@ Entre na pasta do projeto
 cd intelectah-teste
 ```
 
-## Configurando a String de Conex„o
+## Configurando a String de Conex√£o
 
 Abra o arquivo appsettings.json no projeto intelectah.MVC.
 
-Atualize a string de conex„o para usar o banco de dados local:
+Atualize a string de conex√£o para usar o banco de dados local:
 
 ``` 
 
@@ -50,7 +50,7 @@ Atualize a string de conex„o para usar o banco de dados local:
 
 Abra o Package Manager Console.
 
-Selecione o projeto intelectah.Infrastructure como o projeto padr„o.
+Selecione o projeto intelectah.Infrastructure como o projeto padr√£o.
 
 Execute o comando para aplicar as migrations
 
@@ -62,17 +62,17 @@ Update-Database
 
 
 
-## Rodando a aplicaÁ„o
+## Rodando a aplica√ß√£o
 
-No Visual Studio, defina intelectah.MVC como o projeto de inicializaÁ„o:
+No Visual Studio, defina intelectah.MVC como o projeto de inicializa√ß√£o:
 
-Clique com o bot„o direito no projeto intelectah.MVC.
+Clique com o bot√£o direito no projeto intelectah.MVC.
 
 Selecione Set as Startup Project.
 
-Pressione F5 para rodar em modo de depuraÁ„o ou Ctrl + F5 para rodar sem depuraÁ„o.
+Pressione F5 para rodar em modo de depura√ß√£o ou Ctrl + F5 para rodar sem depura√ß√£o.
 
-# Acessando a aplicaÁ„o hospedada
+# Acessando a aplica√ß√£o hospedada
 
 ``` 
 https://intelectahmvc.azurewebsites.net/
