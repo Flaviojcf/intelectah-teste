@@ -5,13 +5,19 @@ VisualStudioVersion = 17.11.35208.52
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "intelectah.Domain", "intelectah.Domain\intelectah.Domain.csproj", "{6A418A8F-759E-419E-A121-BB7C1D99E3F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "intelectah.Tests", "intelectah.Tests\intelectah.Tests.csproj", "{1E799522-6D9C-4214-8BE2-F6CFBC641661}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "intelectah.Tests", "intelectah.Tests\intelectah.Tests.csproj", "{1E799522-6D9C-4214-8BE2-F6CFBC641661}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "intelectah.Application", "intelectah.Application\intelectah.Application.csproj", "{858217F0-87C8-47DB-A7C9-B9752866B1AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "intelectah.Application", "intelectah.Application\intelectah.Application.csproj", "{858217F0-87C8-47DB-A7C9-B9752866B1AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "intelectah.Infrastructure", "intelectah.Infrastructure\intelectah.Infrastructure.csproj", "{7B050515-753D-47D8-B892-E32EA41D9B22}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "intelectah.Infrastructure", "intelectah.Infrastructure\intelectah.Infrastructure.csproj", "{7B050515-753D-47D8-B892-E32EA41D9B22}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "intelectah.MVC", "intelectah.MVC\intelectah.MVC.csproj", "{6B86C03F-D7E8-40D1-861E-3E29C4A04C8C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "intelectah.MVC", "intelectah.MVC\intelectah.MVC.csproj", "{6B86C03F-D7E8-40D1-861E-3E29C4A04C8C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F2D0A104-421D-4F0D-B2D8-AC2266F969AB}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\Downloads\intelectah-capa.png = ..\..\..\Downloads\intelectah-capa.png
+		readme.md = readme.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
