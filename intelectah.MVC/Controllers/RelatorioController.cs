@@ -1,6 +1,7 @@
 ﻿using DinkToPdf;
 using DinkToPdf.Contracts;
 using intelectah.Application.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewEngines;
@@ -9,6 +10,7 @@ using ColorMode = DinkToPdf.ColorMode;
 
 namespace intelectah.MVC.Controllers
 {
+    [Authorize(Roles = "Gerente")]
     public class RelatorioController : Controller
     {
         private readonly IRelatorioService _relatorioService;
