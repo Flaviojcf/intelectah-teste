@@ -36,6 +36,7 @@ namespace intelectah.Domain.Entities
             TipoVeiculo = tipoVeiculo;
             Descricao = descricao;
             FabricanteID = fabricanteID;
+            this.UpdatedAt = DateTime.Now;
         }
 
         private static void ValidateDomain(string modelo, int anoFabricacao, decimal preco, TipoVeiculo tipoVeiculo, int fabricanteID)

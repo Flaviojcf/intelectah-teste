@@ -24,6 +24,7 @@ namespace intelectah.Domain.Entities
             Nome = nome;
             this.CPF = CPF;
             Telefone = telefone;
+            this.UpdatedAt = DateTime.Now;
         }
 
         private static void ValidateDomain(string nome, string CPF, string telefone)

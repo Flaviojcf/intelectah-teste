@@ -41,6 +41,7 @@ namespace intelectah.Domain.Entities
             Telefone = telefone;
             Email = email;
             CapacidadeMaximaVeiculos = capacidadeMaximaVeiculos;
+            this.UpdatedAt = DateTime.Now;
         }
 
         private static void ValidateDomain(string nome, string endereco, string cidade, string estado, string CEP, string telefone, string email, int capacidadeMaximaVeiculos)

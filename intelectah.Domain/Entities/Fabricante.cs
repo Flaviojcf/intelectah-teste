@@ -27,6 +27,7 @@ namespace intelectah.Domain.Entities
             PaisOrigem = paisOrigem;
             AnoFundacao = anoFundacao;
             Website = website;
+            this.UpdatedAt = DateTime.Now;
         }
 
         private static void ValidateDomain(string nome, string paisOrigem, int anoFundacao, string website)

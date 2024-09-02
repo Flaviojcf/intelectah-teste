@@ -26,6 +26,7 @@ namespace intelectah.Domain.Entities
             Senha = senha;
             Email = email;
             NivelAcesso = nivelAcesso;
+            this.UpdatedAt = DateTime.Now;
         }
 
         private static void ValidateDomain(string nome, string senha, string email, NivelAcesso nivelAcesso)
